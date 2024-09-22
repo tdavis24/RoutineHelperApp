@@ -5,15 +5,14 @@
 These commands are used to enable sparse-checkout, which allows users to pull, edit, and push folder(s) from a GitHub repo without having to clone the entire repo. Enabling sparse-checkout only needs to be done once. To enable sparse-checkout, use the following commands: 
 
 ```git
-git clone --no-checkout <repo_url> <repo_name>
+git clone --no-checkout <repo_url>
 ```
-The url for this repo(RoutineHelperApp) is https://github.com/tdavis24/RoutineHelperApp.git
-The repo name should be RoutineHelperApp. When using the above command, you do not need to include the repo name, just having the repo url works.
+This command is used to clone into the repo you will be working on without downloading the entire repo as soon as you clone into it. The url for this repo(RoutineHelperApp) is https://github.com/tdavis24/RoutineHelperApp.git
 
 ```git
 cd <repo_name>
 ```
-This command is used to create a new folder where the GutHub repo will be stored locally on your computer. You can choose any name you would like for this folder, but it is typically best to create the folder with the exact name of the repo.
+This command is used to change the directory to the cloned repo folder. It should typically be "cd RoutineHelperApp".
 
 ```git
 git sparse-checkout init --cone
@@ -23,7 +22,7 @@ This command is used to enable sparse-checkout on the repo previously cloned. Th
 ```git
 git sparse-checkout set <folder/path>
 ```
-This command is used to set what folders you would like to clone(download to your local folder). The folder path should be RoutineHelperApp/src/...
+This command is used to set what folders you would like to actually clone(download to your local folder). The folder path should be RoutineHelperApp/src/...
 
 ```git
 git checkout <branch_name>
@@ -37,7 +36,7 @@ These commands are used to pull the folder(s) from the GitHub repo that has been
 ```git
 git sparse-checkout reapply
 ```
-This command is used to reapply the sparse-checkout rules for the repo. Always run this command before trying to pull any new changes from the github repo if sparse-checkout is enabled. 
+This command is used to reapply the sparse-checkout rules for the repo. Always run this command before trying to pull any new changes from the github repo if sparse-checkout is enabled. This command can also be used to troubleshoot any missing folders in your local repo.
 
 ```git
 git pull
