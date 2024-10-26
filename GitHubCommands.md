@@ -7,12 +7,12 @@ These commands are used to enable sparse-checkout, which allows users to pull, e
 ```git
 git clone --no-checkout <repo_url>
 ```
-This command is used to clone into the repo you will be working on without downloading the entire repo as soon as you clone into it. The url for this repo(RoutineHelperApp) is https://github.com/tdavis24/RoutineHelperApp.git
+This command is used to clone into the repo you will be working on without downloading the entire repo as soon as you clone into it. The url for this repo(RoutineHelperApp) is `https://github.com/tdavis24/RoutineHelperApp.git`.
 
 ```git
 cd <repo_name>
 ```
-This command is used to change the directory to the cloned repo folder. It should typically be "cd RoutineHelperApp".
+This command is used to change the directory to the cloned repo folder. It should typically be `cd RoutineHelperApp`.
 
 ```git
 git sparse-checkout init --cone
@@ -22,12 +22,12 @@ This command is used to enable sparse-checkout on the repo previously cloned. Th
 ```git
 git sparse-checkout set <folder/path>
 ```
-This command is used to set what folders you would like to actually clone(download to your local folder). The folder path should be RoutineHelperApp/src/...
+This command is used to set what folders you would like to actually clone(download to your local folder). The folder path should be `RoutineHelperApp/src/...`
 
 ```git
 git checkout <branch_name>
 ```
-This is used to actually checkout the folder(s) you will be editing. If we are using branches, make sure you use the branch dedicated to yourself when checking out the folder(s). If we are not using branches, the branch name will always be main.
+This is used to actually checkout the folder(s) you will be editing. If we are using branches, make sure you use the branch dedicated to yourself when checking out the folder(s) (i.e. `EthansBranch`, `MichaelsBranch`, or `TannersBranch`). If we are not using branches, the branch name will always be `main`.
 
 ## 2. `Pulling folder(s) after enabling sparse-checkout`
 
@@ -41,7 +41,7 @@ This command is used to reapply the sparse-checkout rules for the repo. Always r
 ```git
 git pull origin <branch>
 ```
-This command is used to actually pull any changes to the repo into your local folder. If there are changes to the repo that you are not seeing locally, try running the sparse-checkout reapply and this command. The branch name will typically be main to pull changes from the main branch into your own branch.
+This command is used to actually pull any changes to the repo into your local folder. If there are changes to the repo that you are not seeing locally, try running the sparse-checkout reapply and this command. The branch name will typically be `main` to pull changes from the main branch into your own branch.
 
 ## 3. `Committing folder(s) to GitHub repo`
 
@@ -55,12 +55,12 @@ This command is used to tell GitHub where the edited folders are stored locally.
 ```git
 git commit -m "Enter your commit comments here"
 ```
-This command is used to commit any changes to the repo. When making commits, you are required to have a comment explaining any changes made to the folders and if there is anything that still needs to be done to the codeabse that was changed, i.e. testing, debugging, finishing program logic, etc. If any commits are made that do not have a comment, they will be rolled back until a comment has been added.
+This command is used to commit any changes to the repo. When making commits, you are required to have a comment explaining any changes made to the folders and if there is anything that still needs to be done to the codeabse that was changed (i.e. testing, debugging, finishing program logic, etc.). If any commits are made that do not have a comment, they will be rolled back until a comment has been added.
 
 ```git
 git push origin <branch_name>
 ```
-This command is used to actually upload the changes made to the repo. The branch name should match the branch you used when checking out the folders, which could be main or a branch dedicated to you alone, depending on if we are using branches or not.
+This command is used to actually upload the changes made to the repo. The branch name should match the branch you used when checking out the folders, which could be `main` or a branch dedicated to you (i.e. `EthansBranch`, `MichaelsBranch`, or `TannersBranch`).
 
 ## 4. `Creating a merge request ro merge your branch into the main branch`
 
