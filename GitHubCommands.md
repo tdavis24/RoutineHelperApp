@@ -39,9 +39,9 @@ git sparse-checkout reapply
 This command is used to reapply the sparse-checkout rules for the repo. Always run this command before trying to pull any new changes from the github repo if sparse-checkout is enabled. This command can also be used to troubleshoot any missing folders in your local repo.
 
 ```git
-git pull
+git pull origin <branch>
 ```
-This command is used to actually pull any changes to the repo into your local folder. If there are changes to the repo that you are not seeing locally, try running the sparse-checkout reapply and this command.
+This command is used to actually pull any changes to the repo into your local folder. If there are changes to the repo that you are not seeing locally, try running the sparse-checkout reapply and this command. The branch name will typically be main to pull changes from the main branch into your own branch.
 
 ## 3. `Committing folder(s) to GitHub repo`
 
@@ -61,3 +61,7 @@ This command is used to commit any changes to the repo. When making commits, you
 git push origin <branch_name>
 ```
 This command is used to actually upload the changes made to the repo. The branch name should match the branch you used when checking out the folders, which could be main or a branch dedicated to you alone, depending on if we are using branches or not.
+
+## 4. `Creating a merge request ro merge your branch into the main branch`
+
+In order to create a merge request to merge any changes made to the repository on your branch, you will need to go to the GitHub repository on the web and follow the instructions on the website.
