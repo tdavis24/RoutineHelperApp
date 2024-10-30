@@ -3,7 +3,7 @@ package Account;
 // Class used to create and manage user accounts
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: October 8, 2024
-public class Account {
+public class Account implements AccountHandler{
     private String username;
     private String email;
     private String password;
