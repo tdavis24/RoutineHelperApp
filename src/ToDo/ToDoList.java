@@ -1,16 +1,16 @@
 package ToDo;
 
-import Task.Task;
 import java.util.ArrayList;
+import Build.*;
 
 // Class used to create and manage a to-do list for a user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: October 8, 2024
-public class ToDo {
+public class ToDoList implements ToDoListHandler{
 
-    private ArrayList<Task> tasks;
+    private ArrayList<Build> tasks;
 
-    public ToDo() {
+    public ToDoList() {
         this.tasks = new ArrayList<>();
     }
 

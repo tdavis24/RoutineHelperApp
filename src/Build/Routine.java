@@ -1,9 +1,9 @@
-package Routine;
+package Build;
 
 // Class used to create and manage routines of a given user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: October 8, 2024
-public class Routine {
+public class Routine extends Build{
     private String routineName;
     private String category;
     private String recurrenceInterval;

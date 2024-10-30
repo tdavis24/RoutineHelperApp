@@ -1,4 +1,4 @@
-package Statistics;
+package Account;
 
 // Class used to run statistics and analytics on a user's account
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel

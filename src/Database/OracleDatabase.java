@@ -1,11 +1,11 @@
 package Database;
 
-// Class used to manage and update a database
+// Class used to manage and update an Oracle database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: October 8, 2024
-public class Database {
+public class OracleDatabase implements DatabaseHandler{
 
-    public Database() {
+    public OracleDatabase() {
 
     }
 
