@@ -9,12 +9,13 @@ public class OracleDatabase implements DatabaseHandler{
 
     }
 
-    public void connect() {
+    public boolean connect()
+    {
 
     }
 
-    public void updateDatabase() {
-
+    public boolean disconnect()
+    {
+        
     }
-    
 }
