@@ -20,8 +20,11 @@ public class Account implements AccountHandler{
 
     }
 
-    public void updateAccount() {
-
+    public void updateAccount(String newEmail, String newPassword, String newName) {
+        this.email = newEmail;
+        this.password = newPassword;
+        this.name = newName;
+        System.out.println("Account information updated.");
     }
 
     public void deleteAccount() {
