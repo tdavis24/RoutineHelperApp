@@ -503,7 +503,7 @@ public class CommandLineInterface {
         return username;
     }
 
-    /* Method to get password form user
+    /* Method to get intial password form user
     *
     *   @return Returns string representation of user's password
     */
