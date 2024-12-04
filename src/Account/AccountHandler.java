@@ -7,9 +7,10 @@ import Database.*;
 // Created on: Ozctober 29, 2024
 public interface AccountHandler {
     
-    public AccountHandler deleteAccount(String username);
+    public AccountHandler deleteAccount();
     public AccountHandler getAccount(String username);
     public boolean updateAccount();
+    public String printInformation();
 
     // class to group user's first and last name together
     public class Name
