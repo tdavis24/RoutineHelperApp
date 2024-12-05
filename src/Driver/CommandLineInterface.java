@@ -648,59 +648,7 @@ public class CommandLineInterface {
      */
     public static void printCategoriesScreen(AccountHandler curAccount)
     {
-        // print category screen
-        System.out.print("What would you like to do:"
-        + "\n1: View current categories"
-        + "\n2: Create new category"
-        + "\n3: Delete a category"
-        + "\n4: Go back to main menu"
-        + "\nEnter your selection here: ");
 
-        // sanitize user's choice
-        int choice = InputValidation.validateMenuChoice(scan.next());
-
-        // clear console
-        clearConsole();
-
-        // perform action based on user's choice
-        switch(choice)
-        {
-            // view current categories
-            case 1:
-            {
-                curAccount.viewCategories();
-                break;
-            }
-
-            // create category
-            case 2:
-            {
-                curAccount.createCategory();
-                break;
-            }
-
-            // delete category
-            case 3:
-            {
-                curAccount.deleteCategory();
-                break;
-            }
-
-            // back to main menu
-            case 4:
-            {
-                return;
-                break;
-            }
-
-            // invalid option
-            default:
-            {
-                System.out.println("Invalid menu choice");
-                printCategoriesScreen(curAccount);
-                break;
-            }
-        }
     }
 
     /*
@@ -709,67 +657,7 @@ public class CommandLineInterface {
      */
     public static void printRoutineScreen(AccountHandler curAccount)
     {
-        // print routine screen
-        System.out.print("What would you like to do:"
-        + "\n1: View current routines"
-        + "\n2: Create new routine"
-        + "\n3: Update a routine"
-        + "\n4: Delete a routine"
-        + "\n5: Go back to main menu"
-        + "\nEnter your selection here: ");
 
-        // sanitize user's choice
-        int choice = InputValidation.validateMenuChoice(scan.next());
-
-        // clear console
-        clearConsole();
-
-        // perform action based on user's choice
-        switch(choice)
-        {
-            // view current routines
-            case 1:
-            {
-                curAccount.viewRoutines();
-                break;
-            }
-
-            // create routine
-            case 2:
-            {
-                curAccount.createRoutine();
-                break;
-            }
-            
-            // update a routine
-            case 3:
-            {
-                curAccount.updateRoutine();
-                break;
-            }
-
-            // delete routine
-            case 4:
-            {
-                curAccount.deleteRoutine();
-                break;
-            }
-
-            // back to main menu
-            case 5:
-            {
-                return;
-                break;
-            }
-
-            // invalid option
-            default:
-            {
-                System.out.println("Invalid menu choice");
-                printRoutineScreen(curAccount);
-                break;
-            }
-        }
     }
 
     /*
@@ -778,67 +666,7 @@ public class CommandLineInterface {
      */
     public static void printToDoListScreen(AccountHandler curAccount)
     {
-        // print to-do list screen
-        System.out.print("What would you like to do:"
-        + "\n1: View current to-do list"
-        + "\n2: Create new to-do list"
-        + "\n3: Update the to-do list"
-        + "\n4: Delete a to-do list"
-        + "\n5: Go back to main menu"
-        + "\nEnter your selection here: ");
 
-        // sanitize user's choice
-        int choice = InputValidation.validateMenuChoice(scan.next());
-
-        // clear console
-        clearConsole();
-
-        // perform action based on user's choice
-        switch(choice)
-        {
-            // view current to-do list
-            case 1:
-            {
-                curAccount.viewToDoList();
-                break;
-            }
-
-            // create category
-            case 2:
-            {
-                curAccount.createToDoList();
-                break;
-            }
-
-            // update to-do list
-            case 3:
-            {
-                curAccount.updateToDoList();
-                break;
-            }
-
-            // delete to-do list
-            case 4:
-            {
-                curAccount.deleteToDoList();
-                break;
-            }
-
-            // back to main menu
-            case 5:
-            {
-                return;
-                break;
-            }
-
-            // invalid option
-            default:
-            {
-                System.out.println("Invalid menu choice");
-                printToDoListScreen(curAccount);
-                break;
-            }
-        }
     }
 
     /*
@@ -847,59 +675,7 @@ public class CommandLineInterface {
      */
     public static void printAccountScreen(AccountHandler curAccount)
     {
-        // print category screen
-        System.out.print("What would you like to do:"
-        + "\n1: View account information"
-        + "\n2: Update account"
-        + "\n3: Delete account"
-        + "\n4: Go back to main menu"
-        + "\nEnter your selection here: ");
 
-        // sanitize user's choice
-        int choice = InputValidation.validateMenuChoice(scan.next());
-
-        // clear console
-        clearConsole();
-
-        // perform action based on user's choice
-        switch(choice)
-        {
-            // view current categories
-            case 1:
-            {
-                curAccount.viewAccount();
-                break;
-            }
-
-            // create category
-            case 2:
-            {
-                curAccount.updateAccount();
-                break;
-            }
-
-            // delete category
-            case 3:
-            {
-                curAccount.deleteAccount();
-                break;
-            }
-
-            // back to main menu
-            case 4:
-            {
-                return;
-                break;
-            }
-
-            // invalid option
-            default:
-            {
-                System.out.println("Invalid menu choice");
-                printCategoriesScreen(curAccount);
-                break;
-            }
-        }
     }
 
     /*  Method to get first name from user
