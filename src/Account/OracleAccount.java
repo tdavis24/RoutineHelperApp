@@ -19,11 +19,10 @@ public class OracleAccount implements AccountHandler{
         this.name = new Name(firstName, lastName);
     }
 
-    public AccountHandler deleteAccount(String username)
+    public AccountHandler deleteAccount()
     {
-        AccountHandler deletedAccount = null;
-
-        return deletedAccount;
+        System.out.println("Oracle account deleted.");
+        return this;
     }
 
     public AccountHandler getAccount(String username)
