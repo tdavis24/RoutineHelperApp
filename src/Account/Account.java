@@ -30,5 +30,21 @@ public class Account implements AccountHandler{
     public void deleteAccount() {
 
     }
+
+    public AccountHandler deleteAccount() {
+
+    }
+
+    public AccountHandler updateAccount() {
+        
+    }
+
+    public void viewCategories() {
+        
+    }
+
+    public void createRoutine() {
+        
+    }
     
 }

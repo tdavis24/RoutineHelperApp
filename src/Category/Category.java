@@ -6,21 +6,32 @@ package Category;
 public class Category implements CategoryHandler{
 
     private String categoryName;
+    private String type;
 
-    public Category(String categoryName) {
+
+    public Category(String categoryName, String type) {
         this.categoryName = categoryName;
+        this.type = type;
     }
 
-    public void createCategory() {
-
+    public boolean createCategory(String name, String type) {
+        this.categoryName = name;
+        this.type = type;
+        System.out.println("Category created: " + name);
+        return true;
     }
 
-    public void deleteCategory() {
-
+    public boolean deleteCategory(String name) {
+        return true;
     }
 
-    public void updateCategory() {
-
+    public boolean updateCategory(String name, String type) {
+        this.categoryName = name;
+        this.type = type;
+        System.out.println("Category updated: " + name);
+        return true;
     }
+
+
     
 }

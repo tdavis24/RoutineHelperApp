@@ -9,6 +9,18 @@ import Database.OracleDatabase;
 public class Controller {
     private AccountHandler curAccount;
 
+    public boolean updateAccount() {
+        
+    }
+    
+    public AccountHandler deleteAccount() {
+        
+    }
+    
+    public boolean createTask(String name, String information, Category category) {
+        
+    }
+
     /*
      *  Method to change instance variable of Controller class
      * 
