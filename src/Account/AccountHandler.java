@@ -10,6 +10,9 @@ public interface AccountHandler {
     public AccountHandler deleteAccount(String username);
     public AccountHandler getAccount(String username);
     public boolean updateAccount();
+    public void generateSchedule(int numDays);
+    public void analyzeSchedule(int numDays);
+    public void compareSchedule(Schedule otherSchedule, int numDays);
 
     // class to group user's first and last name together
     public class Name
