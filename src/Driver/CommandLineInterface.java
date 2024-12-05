@@ -6,36 +6,21 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
-
 import Account.*;
 import Category.*;
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
 // UI class for the Routine Helper App
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: November 13, 2024
 public class CommandLineInterface {
-<<<<<<< Updated upstream
     // Creation of Scanner, Controller, ToDoList, and Routine List objects
     private static Scanner scan = new Scanner(System.in);
-    // private static Controller controller = new Controller();
+    private static Controller controller = new Controller();
     private static ToDoList toDoList = new ToDoList();
     private static List<Routine> routines = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
 
     // Use Case 3.1.1: Create a Routine
-=======
-    // Scanner, Controller, ToDoList, and Routine List objects
-    private static Scanner scan = new Scanner(System.in);
-    private static Controller controller = new Controller();
-    private static ToDoList toDoList = new ToDoList();
-    private static List<Routine> routines = new ArrayList<>();
-
-    // Use Case 3.1.1: Add a Routine
->>>>>>> Stashed changes
     public static void addRoutine() {
         System.out.print("Enter the name of the routine: ");
         String name = scan.next();
@@ -55,7 +40,6 @@ public class CommandLineInterface {
         System.out.println("Routine added successfully: " + name);
     }
 
-<<<<<<< Updated upstream
     // Use Case 3.1.2: Set Reminder for Routine
     public static void setReminderForRoutine() {
         System.out.print("Enter the name of the routine to set a reminder for: ");
@@ -86,14 +70,11 @@ public class CommandLineInterface {
         }
     }
 
-=======
->>>>>>> Stashed changes
     // Use Case 3.1.4: Edit a Routine
     public static void editRoutine() {
         System.out.print("Enter the name of the routine to edit: ");
         String name = scan.next();
         for (Routine routine : routines) {
-<<<<<<< Updated upstream
             if (routine.getName().equalsIgnoreCase(name)) {
                 System.out.println("What would you like to edit?");
                 System.out.println("1: Add Task\n2: Delete Task\n3: Adjust Task\n4: Change Routine Details");
@@ -136,23 +117,12 @@ public class CommandLineInterface {
                     default:
                         System.out.println("Invalid choice.");
                 }
-=======
-            if (routine.name.equalsIgnoreCase(name)) {
-                System.out.print("Enter the new information about the routine: ");
-                routine.information = scan.next();
-                System.out.print("Enter the new deadline for the routine: ");
-                routine.deadline = scan.next();
-                System.out.print("Enter the new recurrence interval: ");
-                routine.setRecurrenceInterval(scan.next());
-                System.out.println("Routine updated successfully: " + name);
->>>>>>> Stashed changes
                 return;
             }
         }
         System.out.println("Routine not found: " + name);
     }
 
-<<<<<<< Updated upstream
     // Use Case 3.1.6: Create Account
     public static void createAccount() {
         System.out.print("Enter your first name: ");
@@ -242,7 +212,8 @@ public class CommandLineInterface {
     public static void manageToDoList() {
         System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
         int choice = InputValidation.validateMenuChoice(scan.next());
-=======
+    }
+
     // Use Case 3.1.5: Delete a Routine
     public static void deleteRoutine() {
         System.out.print("Enter the name of the routine to delete: ");
@@ -265,7 +236,6 @@ public class CommandLineInterface {
     public static void manageToDoList() {
         System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
         int choice = InputValidation.sanitizeMenuChoice(scan.next());
->>>>>>> Stashed changes
         switch (choice) {
             case 1:
                 System.out.print("Enter task name: ");
@@ -291,11 +261,6 @@ public class CommandLineInterface {
                 System.out.println("Invalid choice.");
         }
     }
-}
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
     /*
      *  Method to print login/create account screen
