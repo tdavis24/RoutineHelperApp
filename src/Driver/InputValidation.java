@@ -25,7 +25,7 @@ public class InputValidation {
     *   @return Returns the integer representation of a menu choice
     *   @return Returns -1 if paramenter is not a valid integer or cannot be converted to an integer
     */
-    public static int sanitizeMenuChoice(String input)
+    public static int validateMenuChoice(String input)
     {
         // create return value
         int retVal;
@@ -95,7 +95,7 @@ public class InputValidation {
     *   @return Returns input parameter if string is valid for inputType parameter
     *   @return Return null if input is invalid for inputType
     */
-    public static String sanitizeInput(String inputType, String input)
+    public static String validateInput(String inputType, String input)
     {
         // create return value
         String retVal;

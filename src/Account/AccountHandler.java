@@ -6,11 +6,19 @@ import Database.*;
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: Ozctober 29, 2024
 public interface AccountHandler {
-    
     public AccountHandler deleteAccount();
     public AccountHandler getAccount(String username);
     public boolean updateAccount();
     public String printInformation();
+    // Should what's below be the same as ^ instead?
+    void viewCategories();
+    void createRoutine();
+    void updateRoutine();
+    void deleteRoutine();
+    void viewToDoList();
+    void createToDoList();
+    void updateToDoList();
+    void deleteToDoList();
 
     // class to group user's first and last name together
     public class Name

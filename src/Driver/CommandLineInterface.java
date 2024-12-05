@@ -1,17 +1,266 @@
 package Driver;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import Account.*;
+import Category.*;
 
 // UI class for the Routine Helper App
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: November 13, 2024
 public class CommandLineInterface {
-    // open new scanner
+    // Creation of Scanner, Controller, ToDoList, and Routine List objects
     private static Scanner scan = new Scanner(System.in);
-    
-    // create Controller object
     private static Controller controller = new Controller();
+    private static ToDoList toDoList = new ToDoList();
+    private static List<Routine> routines = new ArrayList<>();
+    private static List<Category> categories = new ArrayList<>();
+
+    // Use Case 3.1.1: Create a Routine
+    public static void addRoutine() {
+        System.out.print("Enter the name of the routine: ");
+        String name = scan.next();
+        System.out.print("Enter the information about the routine: ");
+        String information = scan.next();
+        System.out.print("Enter the deadline for the routine: ");
+        String deadline = scan.next();
+        System.out.print("Enter the recurrence interval (e.g., daily, weekly): ");
+        String recurrenceInterval = scan.next();
+        System.out.print("Enter the category for the routine: ");
+        String categoryName = scan.next();
+
+        Category category = new Category(categoryName);
+        Routine newRoutine = new Routine(name, information, deadline, category, recurrenceInterval);
+        routines.add(newRoutine);
+
+        System.out.println("Routine added successfully: " + name);
+    }
+
+    // Use Case 3.1.2: Set Reminder for Routine
+    public static void setReminderForRoutine() {
+        System.out.print("Enter the name of the routine to set a reminder for: ");
+        String name = scan.next();
+        for (Routine routine : routines) {
+            if (routine.name.equalsIgnoreCase(name)) {
+                System.out.print("Enter reminder time (yyyy-MM-dd HH:mm:ss): ");
+                String reminderTimeStr = scan.next();
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date reminderTime = dateFormat.parse(reminderTimeStr);
+                    routine.setReminder(reminderTime);
+                    System.out.println("Reminder set successfully for routine: " + name);
+                } catch (ParseException e) {
+                    System.out.println("Invalid date format. Please use yyyy-MM-dd HH:mm:ss.");
+                }
+                return;
+            }
+        }
+        System.out.println("Routine not found: " + name);
+    }
+
+    // Use Case 3.1.3: Retrieve Routine Progress
+    public static void retrieveRoutineProgress() {
+        System.out.println("Routine Progress:");
+        for (Routine routine : routines) {
+            System.out.println("Routine: " + routine.name + " - Completion: [Data to be integrated]");
+        }
+    }
+
+    // Use Case 3.1.4: Edit a Routine
+    public static void editRoutine() {
+        System.out.print("Enter the name of the routine to edit: ");
+        String name = scan.next();
+        for (Routine routine : routines) {
+            if (routine.getName().equalsIgnoreCase(name)) {
+                System.out.println("What would you like to edit?");
+                System.out.println("1: Add Task\n2: Delete Task\n3: Adjust Task\n4: Change Routine Details");
+                int choice = InputValidation.validateMenuChoice(scan.next());
+                switch (choice) {
+                    case 1:
+                        // Add Task
+                        System.out.print("Enter task name: ");
+                        String taskName = scan.next();
+                        System.out.print("Enter task information: ");
+                        String taskInfo = scan.next();
+                        System.out.print("Enter task deadline: ");
+                        String taskDeadline = scan.next();
+                        Task newTask = new Task(taskName, taskInfo, taskDeadline);
+                        routine.addTask(newTask);
+                        System.out.println("Task added to routine.");
+                        break;
+                    case 2:
+                        // Delete Task
+                        System.out.print("Enter the name of the task to delete: ");
+                        String delTaskName = scan.next();
+                        routine.deleteTask(delTaskName);
+                        System.out.println("Task deleted from routine.");
+                        break;
+                    case 3:
+                        // Adjust Task
+                        System.out.print("Enter the name of the task to adjust: ");
+                        String adjTaskName = scan.next();
+                        System.out.print("Enter new task information: ");
+                        String newTaskInfo = scan.next();
+                        System.out.print("Enter new task deadline: ");
+                        String newTaskDeadline = scan.next();
+                        Task adjustedTask = new Task(adjTaskName, newTaskInfo, newTaskDeadline);
+                        routine.adjustTask(adjTaskName, adjustedTask);
+                        System.out.println("Task adjusted in routine.");
+                        break;
+                    case 4:
+                        // Change Routine Details
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+                return;
+            }
+        }
+        System.out.println("Routine not found: " + name);
+    }
+
+    // Use Case 3.1.6: Create Account
+    public static void createAccount() {
+        System.out.print("Enter your first name: ");
+        String firstName = scan.next();
+        System.out.print("Enter your last name: ");
+        String lastName = scan.next();
+        System.out.print("Enter your desired username: ");
+        String username = scan.next();
+        System.out.print("Enter your email: ");
+        String email = scan.next();
+        System.out.print("Enter your password: ");
+        String password = scan.next();
+
+        AccountHandler newAccount = new OracleAccount(username, email, password, firstName, lastName);
+        System.out.println("Account created successfully for: " + firstName + " " + lastName);
+    }
+
+    // Use Case 3.1.7: Forgot Password
+    public static void forgotPassword() {
+        System.out.print("Enter your email address to reset password: ");
+        String email = scan.next();
+        System.out.println("A password reset link has been sent to: " + email);
+    }
+
+    // Use Case 3.1.8: Update Account Information
+    public static void updateAccountInformation() {
+        System.out.print("Enter your username to update account information: ");
+        String username = scan.next();
+        System.out.print("Enter new email: ");
+        String newEmail = scan.next();
+        System.out.print("Enter new password: ");
+        String newPassword = scan.next();
+        System.out.println("Account information updated for username: " + username);
+    }
+
+    // Use Case 3.1.9: Create Routine Category
+    public static void createRoutineCategory() {
+        System.out.print("Enter the name of the new category: ");
+        String categoryName = scan.next();
+        Category newCategory = new Category(categoryName);
+        categories.add(newCategory);
+        System.out.println("Category created successfully: " + categoryName);
+    }
+
+    // Use Case 3.1.10: Change Password
+    public static void changePassword() {
+        System.out.print("Enter your current password: ");
+        String currentPassword = scan.next();
+        System.out.print("Enter your new password: ");
+        String newPassword = scan.next();
+        System.out.println("Password has been changed successfully.");
+    }
+
+    // Use Case 3.1.11: Generate Account Schedule with Given Preferences
+    public static void generateAccountSchedule() {
+        System.out.println("Generating schedule based on your preferences...");
+        System.out.println("[Schedule generated based on user preferences]");
+    }
+
+    // Use Case 3.1.12: Generate Profile Schedule Statistics
+    public static void generateProfileScheduleStatistics() {
+        System.out.println("Generating schedule statistics...");
+        System.out.println("[Statistics: Hours studying, hours sleeping, etc.]");
+    }
+
+    // Use Case 3.1.13: Generate Profile To-Do List
+    public static void generateProfileToDoList() {
+        System.out.println("Generating To-Do List for today...");
+        toDoList.displayToDoList();
+    }
+
+    // Use Case 3.1.14: Analyze Routine
+    public static void analyzeRoutine() {
+        System.out.println("Analyzing routine for overlaps and improvements...");
+        System.out.println("[Suggestions generated for routine optimization]");
+    }
+
+    // Use Case 3.1.15: Compare Routine with Another User
+    public static void compareRoutineWithAnotherUser() {
+        System.out.print("Enter the username of the other user to compare routines: ");
+        String otherUsername = scan.next();
+        System.out.println("Comparing routines with user: " + otherUsername);
+        System.out.println("[Available time slots for collaboration]");
+    }
+
+    // Adding options to handle tasks in the To-Do List...?
+    public static void manageToDoList() {
+        System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
+        int choice = InputValidation.validateMenuChoice(scan.next());
+    }
+
+    // Use Case 3.1.5: Delete a Routine
+    public static void deleteRoutine() {
+        System.out.print("Enter the name of the routine to delete: ");
+        String name = scan.next();
+        boolean routineFound = false;
+        for (Routine routine : routines) {
+            if (routine.name.equalsIgnoreCase(name)) {
+                routines.remove(routine);
+                System.out.println("Routine deleted successfully: " + name);
+                routineFound = true;
+                break;
+            }
+        }
+        if (!routineFound) {
+            System.out.println("Routine not found: " + name);
+        }
+    }
+
+    // Adding options to handle tasks in the To-Do List
+    public static void manageToDoList() {
+        System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
+        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        switch (choice) {
+            case 1:
+                System.out.print("Enter task name: ");
+                String taskName = scan.next();
+                System.out.print("Enter task information: ");
+                String taskInfo = scan.next();
+                System.out.print("Enter task deadline: ");
+                String taskDeadline = scan.next();
+                Task task = new Task(taskName, taskInfo, taskDeadline);
+                toDoList.addTask(task);
+                break;
+            case 2:
+                System.out.print("Enter the name of the task to delete: ");
+                String deleteTaskName = scan.next();
+                toDoList.deleteTask(deleteTaskName);
+                break;
+            case 3:
+                toDoList.displayToDoList();
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println("Invalid choice.");
+        }
+    }
 
     /*
      *  Method to print login/create account screen
@@ -25,7 +274,7 @@ public class CommandLineInterface {
         String input = scan.next();
 
         // sanitize input
-        int choice = InputValidation.sanitizeMenuChoice(input);
+        int choice = InputValidation.validateMenuChoice(input);
 
         // verify user made a valid choice
         switch(choice)
@@ -169,7 +418,7 @@ public class CommandLineInterface {
             + "\n5: All information is correct"
             + "\nMake your selection here(Choose only one): ");
 
-            int choice = InputValidation.sanitizeMenuChoice(scan.next());
+            int choice = InputValidation.validateMenuChoice(scan.next());
             while(choice != 5)
             {
                 switch(choice)
@@ -272,7 +521,7 @@ public class CommandLineInterface {
                 + "\n5: All information is correct"
                 + "\nMake your selection here(Choose only one): ");
     
-                choice = InputValidation.sanitizeMenuChoice(scan.next());
+                choice = InputValidation.validateMenuChoice(scan.next());
             }
         }
 
@@ -328,7 +577,7 @@ public class CommandLineInterface {
         + "\nMake your selection here: ");
 
         // get choice
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        int choice = InputValidation.validateMenuChoice(scan.next());
 
         // perform task user chose
         switch(choice)
@@ -408,7 +657,7 @@ public class CommandLineInterface {
         + "\nEnter your selection here: ");
 
         // sanitize user's choice
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        int choice = InputValidation.validateMenuChoice(scan.next());
 
         // clear console
         clearConsole();
@@ -470,7 +719,7 @@ public class CommandLineInterface {
         + "\nEnter your selection here: ");
 
         // sanitize user's choice
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        int choice = InputValidation.validateMenuChoice(scan.next());
 
         // clear console
         clearConsole();
@@ -539,7 +788,7 @@ public class CommandLineInterface {
         + "\nEnter your selection here: ");
 
         // sanitize user's choice
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        int choice = InputValidation.validateMenuChoice(scan.next());
 
         // clear console
         clearConsole();
@@ -607,7 +856,7 @@ public class CommandLineInterface {
         + "\nEnter your selection here: ");
 
         // sanitize user's choice
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+        int choice = InputValidation.validateMenuChoice(scan.next());
 
         // clear console
         clearConsole();
