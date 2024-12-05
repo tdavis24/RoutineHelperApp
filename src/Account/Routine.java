@@ -1,5 +1,6 @@
 package Account;
 
+<<<<<<< Updated upstream
 import Category.Category;
 
 import java.util.ArrayList;
@@ -7,6 +8,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
+=======
+import Category.*;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> Stashed changes
 
 // Class used to create and manage routines of a given user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -17,12 +23,36 @@ public class Routine extends Task{
     private Date reminderTime;
     private Timer reminderTimer;
 
+<<<<<<< Updated upstream
     private List<Task> tasks;
 
     public Routine(String name, String information, String deadline, Category category, String recurrenceInterval) {
         super(name, information, deadline, category);
         this.recurrenceInterval = recurrenceInterval;
         this.tasks = new ArrayList<>();
+=======
+    public Routine(String name, String information, String deadline, Category category, String recurrenceInterval) {
+        super(name, information, deadline);
+        this.category = category;
+        this.recurrenceInterval = recurrenceInterval;
+    }
+    
+    // Getters and setters for recurrenceInterval
+    public String getRecurrenceInterval() {
+        return recurrenceInterval;
+    }
+
+    public void setRecurrenceInterval(String recurrenceInterval) {
+        this.recurrenceInterval = recurrenceInterval;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+>>>>>>> Stashed changes
     }
 
     // Methods to add, delete, and adjust tasks
