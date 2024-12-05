@@ -6,9 +6,7 @@ import Database.*;
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: Ozctober 29, 2024
 public interface AccountHandler {
-    
 
-    public AccountHandler deleteAccount(String username);
     public AccountHandler getAccount(String username);
     public boolean updateAccount();
     public Schedule generateSchedule(int numDays);
@@ -27,6 +25,8 @@ public interface AccountHandler {
     void updateToDoList();
     void deleteToDoList();
     AccountHandler getAccount(String username);
+    public AccountHandler deleteAccount();
+    public String printInformation();
 
     // class to group user's first and last name together
     public class Name

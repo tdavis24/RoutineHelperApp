@@ -300,7 +300,7 @@ public class CommandLineInterface {
     /*  
      *  Method to clear console/terminal
      */
-    private static void clearConsole()
+    public static void clearConsole()
     {
         // try clearing console
         try
