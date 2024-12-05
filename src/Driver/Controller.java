@@ -81,7 +81,7 @@ public class Controller {
         // try logging into account
         try
         {
-            AccountHandler account = OracleDatabase.getAccount(username);
+            AccountHandler account = OracleAccount.getAccount(username);
             if(account == null)
             {
                 throw new Exception();
