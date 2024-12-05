@@ -18,7 +18,7 @@ import Category.*;
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: November 13, 2024
 public class CommandLineInterface {
-<<<<<<< Updated upstream
+<<<<<<< Updated upstream 
     // Creation of Scanner, Controller, ToDoList, and Routine List objects
     private static Scanner scan = new Scanner(System.in);
     // private static Controller controller = new Controller();
