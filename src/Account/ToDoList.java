@@ -32,21 +32,13 @@ public class ToDoList{
 
     }
 
-<<<<<<< Updated upstream
     // Add a Task to To-Do List
-=======
-    // Use Case 3.1.4: Add a Task to To-Do List
->>>>>>> Stashed changes
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Task added successfully: " + task.name);
     }
 
-<<<<<<< Updated upstream
     // Delete a Task from To-Do List
-=======
-    // Use Case 3.1.5: Delete a Task from To-Do List
->>>>>>> Stashed changes
     public void deleteTask(String taskName) {
         boolean taskFound = false;
         for (Task task : tasks) {
