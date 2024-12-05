@@ -160,6 +160,23 @@ public class OracleAccount implements AccountHandler{
         return accountUpdated;
     }
 
+    public void generateSchedule(int numDays){
+        //get tasks associated with account
+        int numResults;
+
+        Task[] results = new Task[numResults];
+
+        
+    }
+
+    public void analyzeSchedule(int numDays){
+
+    }
+
+    public void compareSchedule(Schedule otherSchedule, int numDays){
+
+    }
+
     @SuppressWarnings("static-access")
     @Override
     public String printInformation()

@@ -593,9 +593,10 @@ public class CommandLineInterface {
         + "\n1: Routine/Task"
         + "\n2: Category"
         + "\n3: To-Do List"
-        + "\n4: Account Statistics"
-        + "\n5: Sign Out"
-        + "\n6: Exit Application"
+        + "\n4: Schedule"
+        + "\n5: Account Statistics"
+        + "\n6: Sign Out"
+        + "\n7: Exit Application"
         + "\nMake your selection here: ");
 
         // get choice
@@ -628,8 +629,14 @@ public class CommandLineInterface {
                 break;
             }
 
-            // account statistics
             case 4:
+            {
+                printScheduleScreen(curAccount);
+                printMainMenuScreen(curAccount);
+            }
+
+            // account statistics
+            case 5:
             {
                 printAccountScreen(curAccount);
                 printMainMenuScreen(curAccount);
@@ -637,7 +644,7 @@ public class CommandLineInterface {
             }
 
             // sign out
-            case 5:
+            case 6:
             {
                 curAccount = null;
                 controller.setAccount(null);
@@ -646,7 +653,7 @@ public class CommandLineInterface {
             }
 
             // exit application
-            case 6:
+            case 7:
             {
                 curAccount = null;
                 controller.setAccount(null);
@@ -921,6 +928,57 @@ public class CommandLineInterface {
                 printCategoriesScreen(curAccount);
                 break;
             }
+        }
+    }
+
+    /*
+     *  Method to print the schedule screen 
+     *  @param curAccount Current account user is "logged into"
+     */
+    public static void printScheduleScreen(AccountHandler curAccount){
+        System.out.println("What would you like to do: "
+        + "\n1: Generate Schedule"
+        + "\n2: Analyze Schedule"
+        + "\n3: Compare Schedule with Another User"
+        + "\n4: Return to Main Menu");
+
+        // sanitize user's choice
+        int choice = InputValidation.sanitizeMenuChoice(scan.next());
+
+        // clear console
+        clearConsole();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //write code for generating schedule
+                curAccount.generateSchedule();
+            }
+            
+            case 2:
+            {
+                //write code for analyzing a schedule
+                curAccount.analyzeSchedule();
+            }
+
+            case 3:
+            {
+                //write code for comparing schedule with another user
+                //get other schedule object from another account object
+                
+            }
+
+            case 4:
+            {
+                
+            }
+
+            default:
+            {
+                //not sure what to do here
+            }
+
         }
     }
 

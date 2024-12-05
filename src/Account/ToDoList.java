@@ -18,7 +18,7 @@ public class ToDoList{
     public ToDoList(List<Task> tasks, String timeFrame) {
         this.tasks = new ArrayList<>(tasks);
         this.timeFrame = timeFrame;
-}
+    }
 
     public void createToDoList() {
 
