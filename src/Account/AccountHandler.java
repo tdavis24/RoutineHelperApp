@@ -10,6 +10,11 @@ public interface AccountHandler {
     public AccountHandler getAccount(String username);
     public boolean updateAccount();
     public String printInformation();
+    public AccountHandler getAccount(String username);
+    public boolean updateAccount();
+    public Schedule generateSchedule(int numDays);
+    public void analyzeSchedule(int numDays);
+    public void compareSchedule(Schedule otherSchedule, int numDays);
     // Should what's below be the same as ^ instead?
     void viewCategories();
     void createRoutine();
