@@ -12,7 +12,11 @@ create table UserAccounts (
 create table Routine (
     routineID NUMBER PRIMARY KEY,
     name VARCHAR2(50) NOT NULL,
-    recurrance VARCHAR2(100) NOT NULL,
+    information VARCHAR2(500) NOT NULL,
+    recurrence VARCHAR2(100) NOT NULL,
+    duration TIME,
+    routine_day DATE NOT NULL,
+    routine_time TIME NOT NULL,
     FOREIGN KEY (category) REFERENCES Category(name),
     FOREIGN KEY (username) REFERENCES UserAccounts(username)
 );

@@ -1,5 +1,6 @@
 package Account;
 
+import Account.Schedule.*;
 import Database.*;
 
 // Interface used to create and manage user accounts
@@ -8,21 +9,20 @@ import Database.*;
 public interface AccountHandler {
 
     public AccountHandler getAccount(String username);
-    public boolean updateAccount();
+    public boolean updateAccount(String infoToUpdate, String information);
     public Schedule generateSchedule(int numDays);
     public void analyzeSchedule(int numDays);
     public void compareSchedule(Schedule otherSchedule, int numDays);
-    // public boolean updateAccount();
+    public void generateScheduleStatistics(int numDays);
     // Should what's below be the same as ^ instead?
-    void viewCategories();
-    void createRoutine();
-    void updateRoutine();
-    void deleteRoutine();
-    void viewToDoList();
-    void createToDoList();
-    void updateToDoList();
-    void deleteToDoList();
-    AccountHandler getAccount(String username);
+    public void viewCategories();
+    public void createRoutine();
+    public void updateRoutine();
+    public void deleteRoutine();
+    public void viewToDoList();
+    public void createToDoList();
+    public void updateToDoList();
+    public void deleteToDoList();
     public AccountHandler deleteAccount();
     public String printInformation();
 

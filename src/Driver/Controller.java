@@ -1,6 +1,7 @@
 package Driver;
 
 import Account.*;
+import Category.Category;
 import Database.OracleDatabase;
 
 // Controller class used to pass information between the UI and the database

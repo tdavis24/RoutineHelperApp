@@ -1,6 +1,6 @@
 package Account;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 // Class used to create and manage a to-do list for a user
@@ -9,36 +9,58 @@ import java.util.List;
 public class ToDoList{
 
     private String timeFrame;
-    private ArrayList<Task> tasks;
+    private LinkedList<Task> tasks;
 
     public ToDoList() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new LinkedList<>();
     }
 
     public ToDoList(List<Task> tasks, String timeFrame) {
-        this.tasks = new ArrayList<>(tasks);
+        this.tasks = new LinkedList<>(tasks);
         this.timeFrame = timeFrame;
     }
 
+    /**
+     * Creates or resets the to-do list
+     * Sets a default timeframe if none is provided and clears existing tasks.
+     */
     public void createToDoList() {
-
+        if (this.timeFrame == null || this.timeFrame.isEmpty()) {
+            this.timeFrame = "default";
+        }
+        this.tasks.clear();
+        System.out.println("A new To-Do list has been created with timeframe: " + this.timeFrame);
     }
 
+    /**
+     * Update the existing to-do list.
+     */
     public void updateToDoList() {
+        if (tasks.isEmpty() && (timeFrame == null || timeFrame.isEmpty())) {
+            System.out.println("No To-Do list to update. Please create one first.");
+        } else {
+            System.out.println("To-Do list updated. Current timeframe: " + (this.timeFrame != null ? this.timeFrame : "N/A"));
+        }
 
     }
 
     public void deleteToDoList() {
-
+        this.tasks.clear();
+        this.timeFrame = null;
+        System.out.println("To-Do list deleted successfully.");
     }
 
-    // Add a Task to To-Do List
+    /**
+     * Add a Task to the To-Do List
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Task added successfully: " + task.name);
     }
 
-    // Delete a Task from To-Do List
+    /**
+     * Delete a Task from To-Do List by name
+     */
     public void deleteTask(String taskName) {
         boolean taskFound = false;
         for (Task task : tasks) {
@@ -56,13 +78,26 @@ public class ToDoList{
 
     public void displayToDoList() {
         if (tasks.isEmpty()) {
-            System.out.println("Your to-do list is empty.");
+            System.out.println("Your To-Do list is empty.");
         } else {
-            System.out.println("Your To-Do List:");
+            System.out.println("Your To-Do list (Timeframe: " + (this.timeFrame != null ? this.timeFrame : "N/A") + "):");
             for (Task task : tasks) {
                 System.out.println("- " + task.name);
             }
         }
+    }
+
+    public String getTimeFrame() {
+        return timeFrame;
+    }
+
+    public void setTimeFrame(String timeFrame) {
+        this.timeFrame = timeFrame;
+        System.out.println("To-Do list timeframe set to: " + timeFrame);
+    }
+
+    public List<Task> getTasks() {
+        return new LinkedList<>(tasks);
     }
     
 }
