@@ -20,7 +20,8 @@ public class CommandLineInterface {
     private static List<Routine> routines = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
 
-    // Use Case 3.1.1: Create a Routine
+
+    // Use Case 3.1.1: Add a Routine
     public static void addRoutine() {
         System.out.print("Enter the name of the routine: ");
         String name = scan.next();
@@ -117,10 +118,23 @@ public class CommandLineInterface {
                     default:
                         System.out.println("Invalid choice.");
                 }
+<<<<<<< HEAD
+                
+                if (routine.name.equalsIgnoreCase(name)) {
+                System.out.print("Enter the new information about the routine: ");
+                routine.information = scan.next();
+                System.out.print("Enter the new deadline for the routine: ");
+                routine.deadline = scan.next();
+                System.out.print("Enter the new recurrence interval: ");
+                routine.setRecurrenceInterval(scan.next());
+                System.out.println("Routine updated successfully: " + name);
+=======
+>>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
                 return;
+                }
             }
+            System.out.println("Routine not found: " + name);
         }
-        System.out.println("Routine not found: " + name);
     }
 
     // Use Case 3.1.6: Create Account
@@ -213,7 +227,11 @@ public class CommandLineInterface {
         System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
         int choice = InputValidation.validateMenuChoice(scan.next());
     }
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
     // Use Case 3.1.5: Delete a Routine
     public static void deleteRoutine() {
         System.out.print("Enter the name of the routine to delete: ");
@@ -236,6 +254,10 @@ public class CommandLineInterface {
     public static void manageToDoList() {
         System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
         int choice = InputValidation.sanitizeMenuChoice(scan.next());
+<<<<<<< HEAD
+
+=======
+>>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
         switch (choice) {
             case 1:
                 System.out.print("Enter task name: ");

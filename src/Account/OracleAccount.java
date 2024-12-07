@@ -13,8 +13,8 @@ public class OracleAccount implements AccountHandler{
     // create class variables
     private String username;
     private String email;
-    private String password;
     private Name name;
+    private String password;
     private Scanner scan = new Scanner(System.in);
 
     public OracleAccount(String username, String email, String password, String firstName, String lastName)
