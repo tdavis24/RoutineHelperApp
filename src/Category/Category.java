@@ -32,6 +32,12 @@ public class Category implements CategoryHandler{
         return true;
     }
 
+    public String getCategoryName(){
+        return this.categoryName;
+    }
 
+    public String getCategoryType(){
+        return this.type;
+    }
     
 }
