@@ -17,22 +17,22 @@ public class CommandLineInterface {
     private static Scanner scan = new Scanner(System.in);
     private static Controller controller = new Controller();
     private static ToDoList toDoList = new ToDoList();
-    private static List<Routine> routines = new ArrayList<>();
+    private static List<Task> routines = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
 
 
     // Use Case 3.1.1: Add a Routine
     public static void addRoutine() {
         System.out.print("Enter the name of the routine: ");
-        String name = scan.next();
+        String name = scan.nextLine();
         System.out.print("Enter the information about the routine: ");
-        String information = scan.next();
+        String information = scan.nextLine();
         System.out.print("Enter the deadline for the routine: ");
-        String deadline = scan.next();
-        System.out.print("Enter the recurrence interval (e.g., daily, weekly): ");
-        String recurrenceInterval = scan.next();
+        String deadline = scan.nextLine();
+        System.out.print("Enter the recurrence interval (Options: Daily, Weekly, Bi-Weekly, Monthly, Yearly): ");
+        String recurrenceInterval = scan.nextLine();
         System.out.print("Enter the category for the routine: ");
-        String categoryName = scan.next();
+        String categoryName = scan.nextLine();
 
         Category category = new Category(categoryName);
         Routine newRoutine = new Routine(name, information, deadline, category, recurrenceInterval);
@@ -74,7 +74,7 @@ public class CommandLineInterface {
     // Use Case 3.1.4: Edit a Routine
     public static void editRoutine() {
         System.out.print("Enter the name of the routine to edit: ");
-        String name = scan.next();
+        String name = scan.nextLine();
         for (Routine routine : routines) {
             if (routine.getName().equalsIgnoreCase(name)) {
                 System.out.println("What would you like to edit?");
@@ -118,8 +118,6 @@ public class CommandLineInterface {
                     default:
                         System.out.println("Invalid choice.");
                 }
-<<<<<<< HEAD
-                
                 if (routine.name.equalsIgnoreCase(name)) {
                 System.out.print("Enter the new information about the routine: ");
                 routine.information = scan.next();
@@ -128,8 +126,6 @@ public class CommandLineInterface {
                 System.out.print("Enter the new recurrence interval: ");
                 routine.setRecurrenceInterval(scan.next());
                 System.out.println("Routine updated successfully: " + name);
-=======
->>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
                 return;
                 }
             }
@@ -222,16 +218,6 @@ public class CommandLineInterface {
         System.out.println("[Available time slots for collaboration]");
     }
 
-    // Adding options to handle tasks in the To-Do List...?
-    public static void manageToDoList() {
-        System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
-        int choice = InputValidation.validateMenuChoice(scan.next());
-    }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
     // Use Case 3.1.5: Delete a Routine
     public static void deleteRoutine() {
         System.out.print("Enter the name of the routine to delete: ");
@@ -253,11 +239,7 @@ public class CommandLineInterface {
     // Adding options to handle tasks in the To-Do List
     public static void manageToDoList() {
         System.out.println("What would you like to do?\n1: Add Task\n2: Delete Task\n3: Display To-Do List\n4: Back to Main Menu");
-        int choice = InputValidation.sanitizeMenuChoice(scan.next());
-<<<<<<< HEAD
-
-=======
->>>>>>> 07247c315d0e6c1879a77b0d38f4b7683b4cbc31
+        int choice = InputValidation.validateMenuChoice(scan.next());
         switch (choice) {
             case 1:
                 System.out.print("Enter task name: ");
@@ -421,7 +403,7 @@ public class CommandLineInterface {
         + "\nUsername: " + username
         + "\nPassword: " + password);
         System.out.print("Is this information correct?(Y/N): ");
-        if(InputValidation.sanitizeInput("onlyText", scan.next()) == "y")
+        if(InputValidation.validateInput("onlyText", scan.next()) == "y")
         {
             // create new account with provided information
             newAccount = controller.createAccount(firstName, lastName, username, email, password);
@@ -449,18 +431,18 @@ public class CommandLineInterface {
                     case 1:
                     {
                         System.out.print("Enter your first name here: ");
-                        firstName = InputValidation.sanitizeInput("textOnly", scan.next());
+                        firstName = InputValidation.validateInput("textOnly", scan.next());
                         while(firstName == null)
                         {
                             System.out.print("Please enter a valid first name: ");
-                            firstName = InputValidation.sanitizeInput("textOnly", scan.next());
+                            firstName = InputValidation.validateInput("textOnly", scan.next());
                         }
                         System.out.print("Enter your last name here: ");
-                        lastName = InputValidation.sanitizeInput("textOnly", scan.next());
+                        lastName = InputValidation.validateInput("textOnly", scan.next());
                         while(lastName == null)
                         {
                             System.out.print("Please enter a valid last name: ");
-                            lastName = InputValidation.sanitizeInput("textOnly", scan.next());
+                            lastName = InputValidation.validateInput("textOnly", scan.next());
                         }
                         break;
                     }
@@ -469,18 +451,18 @@ public class CommandLineInterface {
                     case 2:
                     {
                         System.out.print("Please enter your desired username: ");
-                        username = InputValidation.sanitizeInput("username", scan.next());
+                        username = InputValidation.validateInput("username", scan.next());
                         while(username == null || OracleAccount.availableUsername(username))
                         {
                             if((!(OracleAccount.availableUsername(username))) && username != null)
                             {
                                 System.out.print("Username is already taken, please enter a new username: ");
-                                username = InputValidation.sanitizeInput("username", scan.next());
+                                username = InputValidation.validateInput("username", scan.next());
                             }
                             else
                             {
                                 System.out.print("Please enter a valid username: ");
-                                username = InputValidation.sanitizeInput("username", scan.next());
+                                username = InputValidation.validateInput("username", scan.next());
                             }
                         }
                         break;
@@ -490,11 +472,11 @@ public class CommandLineInterface {
                     case 3:
                     {
                         System.out.print("Please enter your email: ");
-                        email = InputValidation.sanitizeInput("email", scan.next());
+                        email = InputValidation.validateInput("email", scan.next());
                         while(email == null)
                         {
                             System.out.print("Please enter a valid email: ");
-                            email = InputValidation.sanitizeInput("email", scan.next());
+                            email = InputValidation.validateInput("email", scan.next());
                         }
                         break;
                     }
@@ -503,11 +485,11 @@ public class CommandLineInterface {
                     case 4:
                     {
                         System.out.print("Please enter your desired password: ");
-                        password = InputValidation.sanitizeInput("password", scan.next());
+                        password = InputValidation.validateInput("password", scan.next());
                         while(password == null)
                         {
                             System.out.print("Please enter a valid password: ");
-                            password = InputValidation.sanitizeInput("password", scan.next());
+                            password = InputValidation.validateInput("password", scan.next());
                         }
                         break;
                     }
@@ -593,9 +575,10 @@ public class CommandLineInterface {
         + "\n1: Routine/Task"
         + "\n2: Category"
         + "\n3: To-Do List"
-        + "\n4: Account Statistics"
-        + "\n5: Sign Out"
-        + "\n6: Exit Application"
+        + "\n4: Schedule"
+        + "\n5: Account Statistics"
+        + "\n6: Sign Out"
+        + "\n7: Exit Application"
         + "\nMake your selection here: ");
 
         // get choice
@@ -628,8 +611,14 @@ public class CommandLineInterface {
                 break;
             }
 
-            // account statistics
             case 4:
+            {
+                printScheduleScreen(curAccount);
+                printMainMenuScreen(curAccount);
+            }
+
+            // account statistics
+            case 5:
             {
                 printAccountScreen(curAccount);
                 printMainMenuScreen(curAccount);
@@ -637,7 +626,7 @@ public class CommandLineInterface {
             }
 
             // sign out
-            case 5:
+            case 6:
             {
                 curAccount = null;
                 controller.setAccount(null);
@@ -646,7 +635,7 @@ public class CommandLineInterface {
             }
 
             // exit application
-            case 6:
+            case 7:
             {
                 curAccount = null;
                 controller.setAccount(null);
@@ -869,7 +858,7 @@ public class CommandLineInterface {
      */
     public static void printAccountScreen(AccountHandler curAccount)
     {
-        // print category screen
+        // print account screen
         System.out.print("What would you like to do:"
         + "\n1: View account information"
         + "\n2: Update account"
@@ -886,21 +875,106 @@ public class CommandLineInterface {
         // perform action based on user's choice
         switch(choice)
         {
-            // view current categories
+            // view current account
             case 1:
             {
                 curAccount.viewAccount();
                 break;
             }
 
-            // create category
+            // update account
             case 2:
             {
-                curAccount.updateAccount();
+                CommandLineInterface.clearConsole();
+                // print current account information
+                curAccount.viewAccount();
+                System.out.print("What would you like to change with your account:"
+                + "\n1: Change username"
+                + "\n2: Change password"
+                + "\n3: Change email"
+                + "Make your selection here: ");
+
+                int updateChoice = InputValidation.validateMenuChoice(scan.next());
+                boolean accountUpdated;
+
+                switch(updateChoice)
+                {
+                    // change username
+                    case 1:
+                    {
+                        System.out.print("Username Requirements:"
+                            + "Length: Between 9-31 characters"
+                            + "Valid Characters: Alphanumeric, '.', '_'"
+                            + "What would you like your new username to be?: ");
+                        String newUsername = InputValidation.validateInput("username", scan.next());
+                        while(newUsername == null)
+                        {
+                            System.out.print("Invalid username. Enter a valid username here: ");
+                            newUsername = InputValidation.validateInput("username", scan.next());
+                        }
+
+                        accountUpdated = curAccount.updateAccount("username", newUsername);
+                    }
+
+                    // change password
+                    case 2:
+                    {
+                        System.out.print("Please enter your current password: ");
+                        String curPass = InputValidation.validateInput("password", scan.next());
+                        String newPass;
+                        boolean correctPassword = curAccount.verifyPassword(curPass);
+                        if(correctPassword)
+                        {
+                            System.out.print("Password Requirements:"
+                                + "Length: Between 9-31 characters"
+                                + "Valid characters: Alphanumeric, '.', '_', '$', '!', '?'"
+                                + "What would you like your new password to be?: ");
+                            newPass = InputValidation.validateInput("password", scan.next());
+                            while(newPass == null)
+                            {
+                                System.out.print("Invalid password. Enter a valid password here: ");
+                                newPass = InputValidation.validateInput("password", scan.next());
+                            }
+                        }
+
+                        accountUpdated = curAccount.updateAccount("password", newPass);
+                    }
+
+                    // change email
+                    case 3:
+                    {
+                        System.out.print("Please enter your new email here: ");
+                        String newEmail = InputValidation.validateInput("email", scan.next());
+                        while(newEmail == null)
+                        {
+                            System.out.print("Invalid email. Enter a valid email here: ");
+                            newEmail = InputValidation.validateInput("email", scan.next());
+                        }
+
+                        accountUpdated = curAccount.updateAccount("email", newEmail);
+                    }
+
+                    // invalid choice
+                    default:
+                    {
+                        CommandLineInterface.clearConsole();
+                        System.out.println("Invalid choice.");
+                        printAccountScreen(curAccount);
+                    }
+                }
+
+                if(accountUpdated)
+                {
+                    System.out.println("Account Updated Successfully.");
+                }
+                else
+                {
+                    System.out.println("Account unable to be updated. Please try again");
+                }
                 break;
             }
 
-            // delete category
+            // delete account
             case 3:
             {
                 curAccount.deleteAccount();
@@ -918,9 +992,60 @@ public class CommandLineInterface {
             default:
             {
                 System.out.println("Invalid menu choice");
-                printCategoriesScreen(curAccount);
+                printAccountScreen(curAccount);
                 break;
             }
+        }
+    }
+
+    /*
+     *  Method to print the schedule screen 
+     *  @param curAccount Current account user is "logged into"
+     */
+    public static void printScheduleScreen(AccountHandler curAccount){
+        System.out.println("What would you like to do: "
+        + "\n1: Generate Schedule"
+        + "\n2: Analyze Schedule"
+        + "\n3: Compare Schedule with Another User"
+        + "\n4: Return to Main Menu");
+
+        // sanitize user's choice
+        int choice = InputValidation.validateMenuChoice(scan.next());
+
+        // clear console
+        clearConsole();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //write code for generating schedule
+                curAccount.generateSchedule();
+            }
+            
+            case 2:
+            {
+                //write code for analyzing a schedule
+                curAccount.analyzeSchedule();
+            }
+
+            case 3:
+            {
+                //write code for comparing schedule with another user
+                //get other schedule object from another account object
+                
+            }
+
+            case 4:
+            {
+                
+            }
+
+            default:
+            {
+                //not sure what to do here
+            }
+
         }
     }
 
@@ -936,11 +1061,11 @@ public class CommandLineInterface {
         String firstName;
         // get first name
         System.out.print("Please enter your first name: ");
-        firstName = InputValidation.sanitizeInput("textOnly", scan.next());
+        firstName = InputValidation.validateInput("textOnly", scan.next());
         while(firstName == null)
         {
             System.out.print("Please enter a valid first name: ");
-            firstName = InputValidation.sanitizeInput("textOnly", scan.next());
+            firstName = InputValidation.validateInput("textOnly", scan.next());
         }
 
         return firstName;
@@ -958,11 +1083,11 @@ public class CommandLineInterface {
         String lastName;
         // get last name
         System.out.print("Please enter your last name: ");
-        lastName = InputValidation.sanitizeInput("textOnly", scan.next());
+        lastName = InputValidation.validateInput("textOnly", scan.next());
         while(lastName == null)
         {
             System.out.print("Please enter a valid last name: ");
-            lastName = InputValidation.sanitizeInput("textOnly", scan.next());
+            lastName = InputValidation.validateInput("textOnly", scan.next());
         }
 
         return lastName;
@@ -980,18 +1105,18 @@ public class CommandLineInterface {
         String username;
         // get username
         System.out.print("Please enter your desired username: ");
-        username = InputValidation.sanitizeInput("username", scan.next());
+        username = InputValidation.validateInput("username", scan.next());
         while(username == null || OracleAccount.availableUsername(username))
         {
             if((!(OracleAccount.availableUsername(username))) && (username != null))
             {
                 System.out.print("Username is already taken. Please enter a new username: ");
-                username = InputValidation.sanitizeInput("username", scan.next());
+                username = InputValidation.validateInput("username", scan.next());
             }
             else
             {
                 System.out.print("Please enter a valid username: ");
-                username = InputValidation.sanitizeInput("username", scan.next());
+                username = InputValidation.validateInput("username", scan.next());
             }
         }
 
@@ -1014,11 +1139,11 @@ public class CommandLineInterface {
         + "\n-Must contain at least one uppercase letter, lowercase letter, number and/or special character"
         + "\n-Valid special characters are: '.', '_', '?', '!', '$'"
         + "\nEnter your password here: ");
-        password = InputValidation.sanitizeInput("password", scan.next());
+        password = InputValidation.validateInput("password", scan.next());
         while(password == null)
         {
             System.out.print("Please enter a valid password: ");
-            password = InputValidation.sanitizeInput("password", scan.next());
+            password = InputValidation.validateInput("password", scan.next());
         }
 
         return password;
@@ -1036,11 +1161,11 @@ public class CommandLineInterface {
         String email;
         // get email
         System.out.print("Please enter your email: ");
-        email = InputValidation.sanitizeInput("email", scan.next());
+        email = InputValidation.validateInput("email", scan.next());
         while(email == null)
         {
             System.out.print("Please enter a valid email: ");
-            email = InputValidation.sanitizeInput("email", scan.next());
+            email = InputValidation.validateInput("email", scan.next());
         }
 
         return email;
