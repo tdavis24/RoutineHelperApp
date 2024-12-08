@@ -17,7 +17,7 @@ public class CommandLineInterface {
     private static Scanner scan = new Scanner(System.in);
     private static Controller controller = new Controller();
     private static ToDoList toDoList = new ToDoList();
-    private static List<Task> routines = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
     private static List<Category> categories = new ArrayList<>();
 
 
@@ -34,101 +34,127 @@ public class CommandLineInterface {
         System.out.print("Enter the category for the routine: ");
         String categoryName = scan.nextLine();
 
-        Category category = new Category(categoryName);
-        Routine newRoutine = new Routine(name, information, deadline, category, recurrenceInterval);
-        routines.add(newRoutine);
+        Category category = findOrCreateCategory(categoryName, "general");
+
+        Task newTask = new Task(name, information, deadline, category, recurrenceInterval);
+
+        tasks.add(newTask);
 
         System.out.println("Routine added successfully: " + name);
     }
 
-    // Use Case 3.1.2: Set Reminder for Routine
-    public static void setReminderForRoutine() {
-        System.out.print("Enter the name of the routine to set a reminder for: ");
-        String name = scan.next();
-        for (Routine routine : routines) {
-            if (routine.name.equalsIgnoreCase(name)) {
-                System.out.print("Enter reminder time (yyyy-MM-dd HH:mm:ss): ");
-                String reminderTimeStr = scan.next();
-                try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date reminderTime = dateFormat.parse(reminderTimeStr);
-                    routine.setReminder(reminderTime);
-                    System.out.println("Reminder set successfully for routine: " + name);
-                } catch (ParseException e) {
-                    System.out.println("Invalid date format. Please use yyyy-MM-dd HH:mm:ss.");
-                }
-                return;
+    // Helper method to find existing category or create a new one
+    private static Category findOrCreateCategory(String categoryName, String type) {
+        for (Category category : categories) {
+            if (category.getCategoryName().equalsIgnoreCase(categoryName)) {
+                return category;
             }
         }
-        System.out.println("Routine not found: " + name);
+        Category newCategory = new Category(categoryName, type);
+        categories.add(newCategory);
+        System.out.println("New category created: " + categoryName);
+        return newCategory;
     }
 
+    // Use Case 3.1.2: Set Reminder for Routine
+    // public static void setReminderForRoutine() {
+    //     System.out.print("Enter the name of the routine to set a reminder for: ");
+    //     String name = scan.next();
+    //     for (Routine routine : routines) {
+    //         if (routine.name.equalsIgnoreCase(name)) {
+    //             System.out.print("Enter reminder time (yyyy-MM-dd HH:mm:ss): ");
+    //             String reminderTimeStr = scan.next();
+    //             try {
+    //                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //                 Date reminderTime = dateFormat.parse(reminderTimeStr);
+    //                 routine.setReminder(reminderTime);
+    //                 System.out.println("Reminder set successfully for routine: " + name);
+    //             } catch (ParseException e) {
+    //                 System.out.println("Invalid date format. Please use yyyy-MM-dd HH:mm:ss.");
+    //             }
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Routine not found: " + name);
+    // }
+
     // Use Case 3.1.3: Retrieve Routine Progress
-    public static void retrieveRoutineProgress() {
-        System.out.println("Routine Progress:");
-        for (Routine routine : routines) {
-            System.out.println("Routine: " + routine.name + " - Completion: [Data to be integrated]");
-        }
-    }
+    // public static void retrieveRoutineProgress() {
+    //     System.out.println("Routine Progress:");
+    //     for (Routine routine : routines) {
+    //         System.out.println("Routine: " + routine.name + " - Completion: [Data to be integrated]");
+    //     }
+    // }
 
     // Use Case 3.1.4: Edit a Routine
     public static void editRoutine() {
         System.out.print("Enter the name of the routine to edit: ");
         String name = scan.nextLine();
-        for (Routine routine : routines) {
-            if (routine.getName().equalsIgnoreCase(name)) {
-                System.out.println("What would you like to edit?");
-                System.out.println("1: Add Task\n2: Delete Task\n3: Adjust Task\n4: Change Routine Details");
-                int choice = InputValidation.validateMenuChoice(scan.next());
-                switch (choice) {
-                    case 1:
-                        // Add Task
-                        System.out.print("Enter task name: ");
-                        String taskName = scan.next();
-                        System.out.print("Enter task information: ");
-                        String taskInfo = scan.next();
-                        System.out.print("Enter task deadline: ");
-                        String taskDeadline = scan.next();
-                        Task newTask = new Task(taskName, taskInfo, taskDeadline);
-                        routine.addTask(newTask);
-                        System.out.println("Task added to routine.");
-                        break;
-                    case 2:
-                        // Delete Task
-                        System.out.print("Enter the name of the task to delete: ");
-                        String delTaskName = scan.next();
-                        routine.deleteTask(delTaskName);
-                        System.out.println("Task deleted from routine.");
-                        break;
-                    case 3:
-                        // Adjust Task
-                        System.out.print("Enter the name of the task to adjust: ");
-                        String adjTaskName = scan.next();
-                        System.out.print("Enter new task information: ");
-                        String newTaskInfo = scan.next();
-                        System.out.print("Enter new task deadline: ");
-                        String newTaskDeadline = scan.next();
-                        Task adjustedTask = new Task(adjTaskName, newTaskInfo, newTaskDeadline);
-                        routine.adjustTask(adjTaskName, adjustedTask);
-                        System.out.println("Task adjusted in routine.");
-                        break;
-                    case 4:
-                        // Change Routine Details
-                        break;
-                    default:
-                        System.out.println("Invalid choice.");
-                }
-                if (routine.name.equalsIgnoreCase(name)) {
-                System.out.print("Enter the new information about the routine: ");
-                routine.information = scan.next();
-                System.out.print("Enter the new deadline for the routine: ");
-                routine.deadline = scan.next();
-                System.out.print("Enter the new recurrence interval: ");
-                routine.setRecurrenceInterval(scan.next());
-                System.out.println("Routine updated successfully: " + name);
-                return;
-                }
+        Task foundTask = null;
+        for (Task task : tasks) {
+            if (task.getName() != null && task.getName().equalsIgnoreCase(name)) {
+                foundTask = task;
+                break;
             }
+        }
+
+        if (foundTask == null) {
+            System.out.println("Routine not found: " + name);
+            return;
+        }
+
+        System.out.println("What would you like to edit?");
+        System.out.println("1: Update Information and Deadline");
+        System.out.println("2: Update Recurrence Interval");
+        System.out.println("3: Update Category");
+        System.out.println("4: Back to Routine Menu");
+        System.out.print("Enter your selection here: ");
+        int choice = InputValidation.validateMenuChoice(scan.next());
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter new information: ");
+                String newInfo = scan.nextLine();
+                System.out.print("Enter new deadline (yyyy-MM-dd): ");
+                String newDeadline = scan.nextLine();
+                foundTask.updateTask(newInfo, newDeadline);
+                break;
+            case 2:
+                System.out.print("Enter new recurrence interval (Daily, Weekly, Bi-Weekly, Monthly, Yearly, None): ");
+                String newRecurrence = scan.nextLine();
+                foundTask.setRecurrenceInterval(newRecurrence);
+                break;
+            case 3:
+                System.out.print("Enter new category name: ");
+                String newCategoryName = scan.nextLine();
+                Category newCategory = findOrCreateCategory(newCategoryName, "general");
+                foundTask.setCategory(newCategory);
+                break;
+            case 4:
+                return;
+            default:
+                System.out.println("Invalid choice.");
+                editRoutine();
+                break;
+        }
+
+        System.out.println("Routine (task) updated successfully: " + name);
+    }
+
+    // Use Case 3.1.5: Delete a Routine
+    public static void deleteRoutine() {
+        System.out.print("Enter the name of the routine to delete: ");
+        String name = scan.next();
+        boolean routineFound = false;
+        for (Routine routine : routines) {
+            if (routine.name.equalsIgnoreCase(name)) {
+                routines.remove(routine);
+                System.out.println("Routine deleted successfully: " + name);
+                routineFound = true;
+                break;
+            }
+        }
+        if (!routineFound) {
             System.out.println("Routine not found: " + name);
         }
     }
@@ -136,54 +162,74 @@ public class CommandLineInterface {
     // Use Case 3.1.6: Create Account
     public static void createAccount() {
         System.out.print("Enter your first name: ");
-        String firstName = scan.next();
+        String firstName = scan.nextLine();
         System.out.print("Enter your last name: ");
-        String lastName = scan.next();
+        String lastName = scan.nextLine();
         System.out.print("Enter your desired username: ");
-        String username = scan.next();
+        String username = scan.nextLine();
         System.out.print("Enter your email: ");
-        String email = scan.next();
+        String email = scan.nextLine();
         System.out.print("Enter your password: ");
-        String password = scan.next();
+        String password = scan.nextLine();
 
-        AccountHandler newAccount = new OracleAccount(username, email, password, firstName, lastName);
-        System.out.println("Account created successfully for: " + firstName + " " + lastName);
+        AccountHandler newAccount = controller.createAccount(firstName, lastName, username, email, password);
+        if (newAccount != null) {
+            System.out.println("Account created successfully for: " + firstName + " " + lastName);
+        } else {
+            System.out.println("Account creation failed. Please try again.");
+        }
     }
 
     // Use Case 3.1.7: Forgot Password
     public static void forgotPassword() {
         System.out.print("Enter your email address to reset password: ");
-        String email = scan.next();
+        String email = scan.nextLine();
         System.out.println("A password reset link has been sent to: " + email);
     }
 
     // Use Case 3.1.8: Update Account Information
     public static void updateAccountInformation() {
         System.out.print("Enter your username to update account information: ");
-        String username = scan.next();
+        String username = scan.nextLine();
         System.out.print("Enter new email: ");
-        String newEmail = scan.next();
+        String newEmail = scan.nextLine();
         System.out.print("Enter new password: ");
-        String newPassword = scan.next();
-        System.out.println("Account information updated for username: " + username);
+        String newPassword = scan.nextLine();
+        boolean updated = controller.updateAccount(username, "email", newEmail) &&
+                            controller.updateAccount(username, "password", newPassword);
+        if (updated) {
+            System.out.println("Account information updated for username: " + username);
+        } else {
+            System.out.println("Failed to update account information. Please try again.");
+        }
     }
 
     // Use Case 3.1.9: Create Routine Category
     public static void createRoutineCategory() {
         System.out.print("Enter the name of the new category: ");
-        String categoryName = scan.next();
-        Category newCategory = new Category(categoryName);
-        categories.add(newCategory);
+        String categoryName = scan.nextLine();
+        Category newCategory = findOrCreateCategory(categoryName, "general");
         System.out.println("Category created successfully: " + categoryName);
     }
 
     // Use Case 3.1.10: Change Password
     public static void changePassword() {
         System.out.print("Enter your current password: ");
-        String currentPassword = scan.next();
-        System.out.print("Enter your new password: ");
-        String newPassword = scan.next();
-        System.out.println("Password has been changed successfully.");
+        String currentPassword = scan.nextLine();
+        // Assuming AccountHandler has a method to verify password
+        boolean correctPassword = controller.verifyPassword(currentPassword);
+        if (correctPassword) {
+            System.out.print("Enter your new password: ");
+            String newPassword = scan.nextLine();
+            boolean updated = controller.updateAccount(controller.getCurrentUsername(), "password", newPassword);
+            if (updated) {
+                System.out.println("Password has been changed successfully.");
+            } else {
+                System.out.println("Failed to change password. Please try again.");
+            }
+        } else {
+            System.out.println("Incorrect current password.");
+        }
     }
 
     // Use Case 3.1.11: Generate Account Schedule with Given Preferences
@@ -216,24 +262,6 @@ public class CommandLineInterface {
         String otherUsername = scan.next();
         System.out.println("Comparing routines with user: " + otherUsername);
         System.out.println("[Available time slots for collaboration]");
-    }
-
-    // Use Case 3.1.5: Delete a Routine
-    public static void deleteRoutine() {
-        System.out.print("Enter the name of the routine to delete: ");
-        String name = scan.next();
-        boolean routineFound = false;
-        for (Routine routine : routines) {
-            if (routine.name.equalsIgnoreCase(name)) {
-                routines.remove(routine);
-                System.out.println("Routine deleted successfully: " + name);
-                routineFound = true;
-                break;
-            }
-        }
-        if (!routineFound) {
-            System.out.println("Routine not found: " + name);
-        }
     }
 
     // Adding options to handle tasks in the To-Do List

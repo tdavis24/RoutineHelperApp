@@ -3,19 +3,50 @@ package Driver;
 import Account.*;
 import Category.Category;
 import Database.OracleDatabase;
+import java.sql.*;
 
 // Controller class used to pass information between the UI and the database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
 // Created on: November 15, 2024
 public class Controller {
     private AccountHandler curAccount;
+    private OracleDatabase db;
+
+    /**
+     * Constructor initializes the OracleDatabase and establishes a connection.
+     */
+    public Controller() {
+        db = new OracleDatabase();
+        if (!db.connect()) {
+            System.out.println("Failed to connect to the database.");
+        }
+    }
 
     public boolean updateAccount() {
-        
+        // Finish logic later
+
+        if (curAccount != null) {
+            System.out.println("Account updated successfully.");
+            return true;
+        }
+        System.out.println("No account is currently logged in to update.");
+        return false;
     }
     
     public AccountHandler deleteAccount() {
-        
+        if (curAccount != null) {
+            AccountHandler deleted = curAccount.deleteAccount();
+            if (deleted != null) {
+                System.out.println("Account deleted.");
+                curAccount = null;
+                return deleted;
+            } else {
+                System.out.println("Unable to delete the account.");
+            }
+        } else {
+            System.out.println("No account currently logged in to delete.");
+        }
+        return null;
     }
     
     public boolean createTask(String name, String information, Category category) {
