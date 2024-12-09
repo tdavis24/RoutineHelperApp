@@ -1,30 +1,37 @@
 package Account;
 
 import Account.Schedule.*;
-import Database.*;
+import java.util.List;
+import Category.*;
 
 // Interface used to create and manage user accounts
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
-// Created on: Ozctober 29, 2024
+// Created on: October 29, 2024
 public interface AccountHandler {
-
+    String getUsername();
     public AccountHandler getAccount(String username);
     public boolean updateAccount(String infoToUpdate, String information);
     public Schedule generateSchedule(int numDays);
-    public void analyzeSchedule(int numDays);
-    public void compareSchedule(Schedule otherSchedule, int numDays);
-    public void generateScheduleStatistics(int numDays);
-    // Should what's below be the same as ^ instead?
-    public void viewCategories();
-    public void createRoutine();
-    public void updateRoutine();
-    public void deleteRoutine();
+    public String analyzeSchedule(int numDays);
+    public String compareSchedule(Schedule otherSchedule, int numDays);
+    public String generateScheduleStatistics(int numDays);
+    public List<Category> viewCategories();
+    public void viewRoutines();
+    public boolean createRoutine(Task task);
+    public void updateRoutine(Task task);
+    public void deleteRoutine(String name);
     public void viewToDoList();
     public void createToDoList();
     public void updateToDoList();
-    public void deleteToDoList();
+    public void deleteToDoList(String name);
     public AccountHandler deleteAccount();
-    public String printInformation();
+    public String accountInformation();
+    public boolean availableUsername(String possibleUsername);
+    public boolean verifyPassword(String curPass);
+    public String viewAccount();
+    public boolean createCategory(String name, String type);
+    public boolean deleteCategory(String name);
+    public Category getCategory(String categoryName);
 
     // class to group user's first and last name together
     public class Name

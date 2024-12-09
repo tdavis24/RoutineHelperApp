@@ -1,10 +1,9 @@
 package Account.Schedule;
 
 import java.time.*;
-
-import Account.Task;
-
-import Category.Category;
+import Account.*;
+import java.util.LinkedList;
+import Category.*;
 
 public class DaySchedule{
 
@@ -186,7 +185,24 @@ public class DaySchedule{
         return result;
     }
 
+    public LinkedList<Task> getRemainingTasksForTheDay(){
+        LinkedList<Task> tasks = new LinkedList<Task>();
+        TaskNode curNode = this.head;
+        
+        while(curNode.next != null){
+            if(curNode.containedTask.getTimeOfDay().isAfter(LocalTime.now())){
+                tasks.add(curNode.containedTask);
+                curNode = curNode.next;
+            }
 
+        }
+        if(curNode.containedTask.getTimeOfDay().isAfter(LocalTime.now())){
+            tasks.add(curNode.containedTask);
+        }
+
+        return tasks;
+
+    }
 
     public String analyze(LocalTime starttimeOfNextDayTask, LocalTime endTimeOfLastDay, boolean start, boolean end){
 
@@ -210,7 +226,7 @@ public class DaySchedule{
             
             // public LocalTime[] getGapArray(LocalTime tomorrowStartTime, LocalTime yesterDayEndTime, boolean start, boolean end, boolean findGapForComparison){
 
-            LocalTime gapArray[] = getGapArray(starttimeOfNextDayTask, endTimeOfLastDay, start, end, false);
+            LocalTime gapArray[] = getGapArray(starttimeOfNextDayTask, endTimeOfLastDay, start, end);
 
             boolean sleepingWindowFound = false;
             for(int i = 0; i < gapArray.length; i++){

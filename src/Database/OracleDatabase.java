@@ -9,9 +9,9 @@ public class OracleDatabase implements DatabaseHandler{
 
     // set up class variables
     private Connection connection;
-    private static final String DB_URL = "";
-    private static final String DB_USERNAME = "";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_URL = "jdbc:oracle:thin@localhost:1521/FREEPDB1";
+    private static final String DB_USERNAME = "SYS";
+    private static final String DB_PASSWORD = "IT326RoutineHelperApp!";
 
     /*
      *  Constructor for OracleDatabase
@@ -36,15 +36,18 @@ public class OracleDatabase implements DatabaseHandler{
             if(connection == null || connection.isClosed())
             {
                 connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                System.out.println("Connected to the Oracle database successfully.");
                 return true;
             }
             else
             {
+                System.out.println("Already connected to the Oracle database.");
                 return false;
             }
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
+            System.out.println("Failed to connect to the Oracle database: " + e.getMessage());
             return false;
         }
     }

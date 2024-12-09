@@ -2,6 +2,7 @@ package Account;
 
 import java.util.LinkedList;
 import java.util.List;
+import Account.Schedule.*;
 
 // Class used to create and manage a to-do list for a user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -20,16 +21,16 @@ public class ToDoList{
         this.timeFrame = timeFrame;
     }
 
+
     /**
      * Creates or resets the to-do list
      * Sets a default timeframe if none is provided and clears existing tasks.
      */
-    public void createToDoList() {
-        if (this.timeFrame == null || this.timeFrame.isEmpty()) {
-            this.timeFrame = "default";
-        }
+    public void createToDoList(List <Task> tasks) {
+        this.timeFrame = (timeFrame != null && !timeFrame.isEmpty()) ? timeFrame : "Default";
         this.tasks.clear();
-        System.out.println("A new To-Do list has been created with timeframe: " + this.timeFrame);
+        this.tasks.addAll(tasks);
+        System.out.println("A new To-Do list has been created.");
     }
 
     /**
@@ -82,7 +83,7 @@ public class ToDoList{
         } else {
             System.out.println("Your To-Do list (Timeframe: " + (this.timeFrame != null ? this.timeFrame : "N/A") + "):");
             for (Task task : tasks) {
-                System.out.println("- " + task.name);
+                System.out.println("- " + task.getName() + " [Priority: " + task.getPriority() + "]" + (task.isCompleted() ? " [Completed]" : ""));
             }
         }
     }
