@@ -228,7 +228,6 @@ public class CommandLineInterface {
     public static void changePassword() {
         System.out.print("Enter your current password: ");
         String currentPassword = scan.nextLine();
-        // Assuming AccountHandler has a method to verify password
         boolean correctPassword = controller.verifyPassword(currentPassword);
         if (correctPassword) {
             System.out.print("Enter your new password: ");
@@ -243,12 +242,6 @@ public class CommandLineInterface {
             System.out.println("Incorrect current password.");
         }
     }
-
-    // Use Case 3.1.11: Generate Account Schedule with Given Preferences
-    // public static void generateAccountSchedule() {
-    //     System.out.println("Generating schedule based on your preferences...");
-    //     System.out.println("[Schedule generated based on user preferences]");
-    // }
 
     // Use Case 3.1.12: Generate Profile Schedule Statistics
     public static void generateProfileScheduleStatistics(AccountHandler curAccount, int numDays) {
@@ -1221,7 +1214,8 @@ private static void promptEnterKey(){
                 int numDays = InputValidation.validateInteger(input);
                 //write code for generating schedule
                 Schedule genSchedule = curAccount.generateSchedule(numDays);
-                genSchedule.display();
+                String scheduleString = genSchedule.display();
+                System.out.println(scheduleString);
                 break;
             }
             // Use Case 3.1.14: Analyze Routine
