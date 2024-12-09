@@ -124,28 +124,39 @@ public class DaySchedule{
         return gapArray;
     }
 
-    public void printList(){
+    public String printList(){
+        String listStr = "";
         if(this.head == null){
             System.out.println("This list is empty");
         } else {
             TaskNode curNode = this.head;
             while(curNode.next != null){
-                printTask(curNode);
+                listStr += printTask(curNode);
                 curNode = curNode.next;
             }
-            printTask(curNode);
+            listStr += printTask(curNode);
         }
+        return listStr;
     }
 
-    public void printTask(TaskNode t){
+    public String printTask(TaskNode t){
+        String taskStr = "";
         System.out.println();
         System.out.println("Name: " + t.containedTask.getName());
+        taskStr += "Name: " + t.containedTask.getName() + "\n";
         System.out.println("Information: " + t.containedTask.getInformation());
+        taskStr += "Information: " + t.containedTask.getInformation() + '\n';
         System.out.println("Deadline: " + t.containedTask.getDeadline());
+        taskStr += "Deadline: " + t.containedTask.getDeadline() + '\n';
         System.out.println("Time of day: " + t.containedTask.getTimeOfDay());
+        taskStr += "Time of Day: " + t.containedTask.getTimeOfDay() + '\n';
         System.out.println("Duration: " + t.containedTask.getDuration());
+        taskStr += "Duration: " + t.containedTask.getDuration() + '\n';
         System.out.println("Recurrance Interval: " + t.containedTask.getRecurrenceInterval());
-        System.out.println("Category: Name: " + t.containedTask.getCategory().getCategoryName());
+        taskStr += "Recurrance Interval: " + t.containedTask.getRecurrenceInterval() + '\n';
+        System.out.println("Category Name: " + t.containedTask.getCategory().getCategoryName());
+        taskStr += "Category Name: " + t.containedTask.getDeadline() + '\n';
+        return taskStr;
     }
 
     public String compareDaySchedule(DaySchedule otherSchedule){

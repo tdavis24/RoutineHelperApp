@@ -144,17 +144,19 @@ public class Schedule {
         
     }
 
-    public void display(){
+    public String display(){
         LocalDate temp = this.startdate;
+        String scheduleString = "";
         for(int i = 0; temp.isBefore(this.enddate); i++){
             temp = temp.plusDays(1);
             System.out.println("Printing schedule for " + temp);
             if(this.schedule[i].getDaySchedule().count > 0){
-                this.schedule[i].getDaySchedule().printList();
+                scheduleString += this.schedule[i].getDaySchedule().printList();
             } else {
                 System.out.println("Nothing scheduled for " + temp);
             }
         }
+        return scheduleString;
     }
 
     public Day[] getSchedule(){
