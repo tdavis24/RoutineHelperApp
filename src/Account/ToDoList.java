@@ -2,7 +2,6 @@ package Account;
 
 import java.util.LinkedList;
 import java.util.List;
-import Account.Schedule.*;
 
 // Class used to create and manage a to-do list for a user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel

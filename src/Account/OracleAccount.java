@@ -1,15 +1,17 @@
 package Account;
 
 import java.sql.*;
-import Database.*;
+import Database.OracleDatabase;
 import Driver.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.*;
 import java.time.format.DateTimeParseException;
-import Category.*;
-import Account.Schedule.*;
+import Category.Category;
+import Account.Schedule.Schedule;
+import Account.Schedule.TimeCalculator;
+import Account.Schedule.DaySchedule;
 
 
 // Class used to create and manage user accounts

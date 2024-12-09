@@ -2,7 +2,6 @@ package Driver;
 
 import java.util.InputMismatchException;
 import java.util.regex.*;
-import Account.*;
 
 // Class used to sanitize user input and pass objects between UserInterface and Account
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
