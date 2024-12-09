@@ -140,7 +140,7 @@ public class DaySchedule{
     }
 
     public String printTask(TaskNode t){
-        String taskStr = "";
+        String taskStr = "\n";
         System.out.println();
         System.out.println("Name: " + t.containedTask.getName());
         taskStr += "Name: " + t.containedTask.getName() + "\n";
