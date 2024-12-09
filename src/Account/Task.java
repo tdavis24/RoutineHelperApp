@@ -1,10 +1,7 @@
 package Account;
 
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import Category.Category;
+import Category.*;
+import java.time.*;
 
 // Class used to create and manage tasks of a given user
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -19,27 +16,36 @@ public class Task{
     protected LocalDate startDate;
     protected LocalTime duration;
     protected String recurrenceInterval;
+
+    private String priority;
+    private boolean isCompleted;
+
+    // Boolean flag indicating deletion status
     private boolean deleted = false;
 
+    private LocalTime reminderTime;
+    private LocalDate reminderDate;
+
     // Routine
-    public Task(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startDate, String recurrenceInterval, LocalTime duration, Category category) {
+    public Task(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startdate, String recurrenceInterval, LocalTime duration, Category category) {
         this.name = name;
         this.information = information;
         this.deadline = deadline;
         this.timeOfDay = timeOfDay;
-        this.startDate = startDate; 
+        this.startDate = startdate; 
         this.recurrenceInterval = recurrenceInterval;
         this.duration = duration;
         this.category = category;
+        this.isCompleted = false;
     }
     
     // Task no recurrence
-    public Task(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startDate, LocalTime duration, Category category) {
+    public Task(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startdate, LocalTime duration, Category category) {
         this.name = name;
         this.information = information;
         this.deadline = deadline;
         this.timeOfDay = timeOfDay;
-        this.startDate = startDate; 
+        this.startDate = startdate; 
         this.duration = duration;
         this.recurrenceInterval = null;
         this.category = category;
@@ -50,6 +56,9 @@ public class Task{
         this(name, information, deadline, LocalTime.now(), LocalDate.now(), recurrenceInterval, LocalTime.of(1,0), category);
     }
 
+    /**
+     * Updates the task's information and deadline
+     */
     public Task updateTask(String newInfo, String newDeadline) {
         if (deleted) {
             System.out.println("Cannot update a deleted task.");
@@ -57,39 +66,60 @@ public class Task{
         }
 
         if (newInfo == null || newInfo.trim().isEmpty()) {
-            System.out.println("Information cannot be empty. Task not updated.");
+            System.out.println("Task information cannot be null. Task not updated.");
             return this;
         }
 
         if (newDeadline == null || newDeadline.trim().isEmpty()) {
             System.out.println("Deadline cannot be empty. Task not updated.");
             return this;
-        }
-
+        }        
         this.information = newInfo;
         this.deadline = newDeadline;
         System.out.println("Task updated successfully.");
         return this;
     }
-    
+
+    /**
+     * Marks the task as deleted and removes the task
+     */
     public Task deleteTask() {
         if (deleted) {
             System.out.println("This task is already deleted.");
             return this;
         }
 
+        // Clears fields
         this.name = null;
         this.information = null;
         this.deadline = null;
         this.timeOfDay = null;
-        this.startDate = null;
+        this.startDate = null; 
         this.duration = null;
         this.recurrenceInterval = null;
         this.category = null;
 
+        // Marks task as deleted
         this.deleted = true;
+
         System.out.println("Task deleted successfully.");
         return this;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
     public String getName(){
@@ -131,8 +161,8 @@ public class Task{
         return this.category;
     }
 
-    public boolean isDeleted() { 
-        return this.deleted; 
+    public boolean isDeleted() {
+        return this.deleted;
     }
 
     /**
@@ -198,7 +228,7 @@ public class Task{
     /**
      * Sets the start date of the task.
      */
-    public void setstartDate(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate) {
         if (deleted) {
             System.out.println("Cannot set start date for a deleted task.");
             return;
@@ -239,7 +269,7 @@ public class Task{
         System.out.println("Name updated successfully to: " + name);
     }
 
-        @Override
+    @Override
     public String toString() {
         return "Task{" +
                 "name='" + name + '\'' +
@@ -250,8 +280,23 @@ public class Task{
                 ", duration=" + duration +
                 ", recurrenceInterval='" + recurrenceInterval + '\'' +
                 ", category=" + (category != null ? category.getCategoryName() : "None") +
+                ", priority='" + priority + '\'' +
+                ", isCompleted=" + isCompleted +
                 ", deleted=" + deleted +
                 '}';
     }
 
+    public void setReminder(LocalTime reminderTime, LocalDate reminderDate) {
+        if (deleted) {
+            System.out.println("Cannot set reminder for a deleted task.");
+            return;
+        }
+        this.reminderTime = reminderTime;
+        this.reminderDate = reminderDate;
+        System.out.println("Reminder set for: " + reminderTime);
+    }
+
+    public LocalTime getRemindTime() {
+        return this.reminderTime;
+    }
 }

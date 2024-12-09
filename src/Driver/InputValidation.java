@@ -13,7 +13,7 @@ public class InputValidation {
     private static Pattern usernamePattern = Pattern.compile("^(([A-Za-z0-9._]{1})([A-Za-z0-9._]*)){8,30}$");
     private static Pattern passwordPattern = Pattern.compile("^(([A-Za-z0-9._!?$]{1})([A-Za-z0-9._!?$]*)){8,30}$");
     private static Pattern textOnlyPattern = Pattern.compile("^[A-Za-z]*$");
-    private static Pattern emailPattern = Pattern.compile("^[\\\\w!#$%&'*+/=?`{|}~^.-]+@[\\\\w.-]+\\\\.[a-zA-Z]{2,}$");
+    private static Pattern emailPattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     private static Matcher usernameMatcher;
     private static Matcher passwordMatcher;
     private static Matcher textMatcher;
@@ -52,6 +52,39 @@ public class InputValidation {
         catch(Exception e)
         {
             return -1;
+        }
+        return retVal;
+    }
+
+    /*  Method to validate integer input
+    *
+    *   @param input A string representation of a user's menu choice
+    *   @return Returns the integer representation of a menu choice
+    *   @return Returns -1 if paramenter is not a valid integer or cannot be converted to an integer
+    */
+    public static int validateInteger(String input)
+    {
+        // create return value
+        int retVal;
+
+        // try sanitizing input
+        try
+        {
+
+
+            // check if able to convert input to int
+            try
+            {
+                retVal = Integer.parseInt(input);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+        catch(Exception e)
+        {
+            return 0;
         }
         return retVal;
     }
