@@ -103,7 +103,7 @@ public class Controller {
             if (deleted != null) {
                 // Delete the account from the database
                 Connection conn = db.getConnection();
-                String sql = "DELETE FROM accounts WHERE username = ?";
+                String sql = "DELETE FROM UserAccounts WHERE username = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, curAccount.getUsername());
                     int affectedRows = pstmt.executeUpdate();
@@ -243,7 +243,7 @@ public class Controller {
     public AccountHandler loginAccount(String username, String password) {
         try {
             Connection conn = db.getConnection();
-            String sql = "SELECT * FROM accounts WHERE username = ?";
+            String sql = "SELECT * FROM UserAccounts WHERE username = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, username);
                 ResultSet rs = pstmt.executeQuery();
@@ -353,7 +353,7 @@ public class Controller {
     private AccountHandler fetchAccountDetails(String username) {
         try {
             Connection conn = db.getConnection();
-            String sql = "SELECT * FROM accounts WHERE username = ?";
+            String sql = "SELECT * FROM UserAccounts WHERE username = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, username);
                 ResultSet rs = pstmt.executeQuery();
