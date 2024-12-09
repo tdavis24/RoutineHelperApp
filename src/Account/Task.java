@@ -1,6 +1,6 @@
 package Account;
 
-import Category.*;
+import Category.Category;
 import java.time.*;
 
 // Class used to create and manage tasks of a given user

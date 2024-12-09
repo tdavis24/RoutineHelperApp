@@ -1,6 +1,8 @@
 package Database;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 // Class used to manage and update an Oracle database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -9,7 +11,7 @@ public class OracleDatabase implements DatabaseHandler{
 
     // set up class variables
     private Connection connection;
-    private static final String DB_URL = "jdbc:oracle:thin@localhost:1521/FREEPDB1";
+    private static final String DB_URL = "jdbc:oracle:thin:sys/IT326RoutineHelperApp!@localhost:1521/FREEPDB1 as SYSDBA";
     private static final String DB_USERNAME = "SYS";
     private static final String DB_PASSWORD = "IT326RoutineHelperApp!";
 

@@ -3,12 +3,11 @@ package Driver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import Account.*;
-import Category.*;
-import Account.Schedule.*;
+import Account.ToDoList;
+import Account.Task;
+import Account.AccountHandler;
+import Category.Category;
+import Account.Schedule.Schedule;
 import java.time.*;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
@@ -81,7 +80,7 @@ public class CommandLineInterface {
                     routine.setReminder(reminderTimeLoc, reminderDateLoc);
                     System.out.println("Reminder set successfully for routine: " + name);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid date format. Please use yyyy-MM-dd HH:mm:ss.");
+                    System.out.println("Invalid date format. Please use yyyy-MM-dd and HH:mm:ss.");
                 }
                 return;
             }

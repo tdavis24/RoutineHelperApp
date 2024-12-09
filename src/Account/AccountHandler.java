@@ -1,8 +1,8 @@
 package Account;
 
-import Account.Schedule.*;
 import java.util.List;
-import Category.*;
+import Category.Category;
+import Account.Schedule.Schedule;
 
 // Interface used to create and manage user accounts
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
