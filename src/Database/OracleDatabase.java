@@ -11,7 +11,7 @@ public class OracleDatabase implements DatabaseHandler{
 
     // set up class variables
     private Connection connection;
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/FREE as SYSDBA";
+    private static final String DB_URL = "jdbc:oracle:thin:sys/IT326RoutineHelperApp!@localhost:1521/FREE as SYSDBA";
     private static final String DB_USER = "SYS";
     private static final String DB_PASS = "IT326RoutineHelperApp!";
 
