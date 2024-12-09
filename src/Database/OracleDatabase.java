@@ -3,6 +3,7 @@ package Database;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 // Class used to manage and update an Oracle database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -11,9 +12,10 @@ public class OracleDatabase implements DatabaseHandler{
 
     // set up class variables
     private Connection connection;
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/FREE as SYSDBA";
-    private static final String DB_USER = "SYS";
-    private static final String DB_PASS = "IT326RoutineHelperApp!";
+    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/FREEPDB1";
+    private static final Properties CONNECTION_OPTIONS = new Properties();
+    
+
 
     /*
      *  Constructor for OracleDatabase
@@ -22,6 +24,9 @@ public class OracleDatabase implements DatabaseHandler{
     {
         // no connection to begin with
         this.connection = null;
+        CONNECTION_OPTIONS.setProperty("user", "SYS");
+        CONNECTION_OPTIONS.setProperty("password", "IT326RoutineHelperApp!");
+        CONNECTION_OPTIONS.setProperty("internal_logon", "SYSDBA");
     }
 
     /*
@@ -37,7 +42,7 @@ public class OracleDatabase implements DatabaseHandler{
         {
             if(connection == null || connection.isClosed())
             {
-                connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+                connection = DriverManager.getConnection(DB_URL, CONNECTION_OPTIONS);
                 System.out.println("Connected to the Oracle database successfully.");
                 return true;
             }

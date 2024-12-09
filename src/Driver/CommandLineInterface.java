@@ -450,8 +450,6 @@ public class CommandLineInterface {
      */
     public static void printAccountLoginScreen()
     {
-        // clear console
-        clearConsole();
 
         // get username
         System.out.print("Username: ");
@@ -467,6 +465,8 @@ public class CommandLineInterface {
         // check if login was successful
         while(account == null)
         {
+            // clear console
+            clearConsole();
             System.out.println("Incorrect username or password");
             printAccountLoginScreen();
         }
@@ -477,7 +477,7 @@ public class CommandLineInterface {
     private static String setUsername() {
         clearConsole();
         
-        String username;
+        String username = null;
         System.out.print("Please enter your desired username: ");
         username = InputValidation.validateInput("username", scan.next());
         while(username == null || controller.isUsernameTaken(username)) { 
@@ -519,12 +519,11 @@ public class CommandLineInterface {
         + "\nUsername: " + username
         + "\nPassword: " + password);
         System.out.print("Is this information correct?(Y/N): ");
-        String confirmation = InputValidation.validateInput("textOnly", scan.next());
         if(InputValidation.validateInput("onlyText", scan.next()) == "y")
-            if("y".equalsIgnoreCase(confirmation)) {
-                // create new account with provided information
-                newAccount = controller.createAccount(firstName, lastName, username, email, password);
-            }
+        {
+            // create new account with provided information
+            newAccount = controller.createAccount(firstName, lastName, username, email, password);
+        }
         else
         {
             // clear console
