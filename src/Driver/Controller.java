@@ -1,11 +1,15 @@
 package Driver;
 
-import Account.*;
+import Account.AccountHandler;
 import Category.Category;
 import Database.OracleDatabase;
-import Account.Schedule.*;
+import Account.Schedule.Schedule;
+import Account.Task;
 import java.sql.*;
 import java.util.LinkedList;
+import Account.ToDoList;
+import Account.OracleAccount;
+import Account.Schedule.Day;
 
 // Controller class used to pass information between the UI and the database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
