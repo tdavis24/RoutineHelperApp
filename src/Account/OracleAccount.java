@@ -409,18 +409,33 @@ public class OracleAccount implements AccountHandler{
     }
     
 	public boolean createRoutine(Task task) {
-        String query = "INSERT INTO Routine (username, name, information, deadline, routine_time, routine_day, recurrence, duration, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  
+        String query = "INSERT INTO Routine (routineID, username, name, deadline, information, recurrence, duration,routine_day, routine_time, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // routineID NUMBER PRIMARY KEY,
+        // username VARCHAR2(30) NOT NULL,
+        // name VARCHAR2(50) NOT NULL,
+        // deadline DATE NOT NULL,
+        // information VARCHAR2(500) NOT NULL,
+        // recurrence VARCHAR2(100) NOT NULL,
+        // duration NUMBER NOT NULL,
+        // routine_day DATE NOT NULL,
+        // routine_time DATE NOT NULL,
+        // category VARCHAR2(100) NOT NULL,
+        // FOREIGN KEY (category) REFERENCES Category(name),
+        // FOREIGN KEY (username) REFERENCES UserAccounts(username)
         try (PreparedStatement statement = db.getConnection().prepareStatement(query)) {
-            statement.setString(1, this.username);
-            statement.setString(2, task.getName());
-            statement.setString(3, task.getInformation());
+            System.out.println("Enter task id (must be unique)");
+            String input = scan.nextLine();
+            int id = InputValidation.validateInteger(input);
+            statement.setInt(1, id);
+            statement.setString(2, this.username);
+            statement.setString(3, task.getName());
             statement.setString(4, task.getDeadline());
-            statement.setTime(5, Time.valueOf(task.getTimeOfDay()));
-            statement.setDate(6, Date.valueOf(task.getDate()));
-            statement.setString(7, task.getRecurrenceInterval());
-            statement.setTime(8, Time.valueOf(task.getDuration()));
-            statement.setString(9, task.getCategory().getCategoryName());
+            statement.setString(5, task.getInformation());
+            statement.setString(6, task.getRecurrenceInterval());
+            statement.setTime(7, Time.valueOf(task.getDuration()));
+            statement.setDate(8, Date.valueOf(task.getDate()));
+            statement.setTime(9, Time.valueOf(task.getTimeOfDay()));
+            statement.setString(10, task.getCategory().getCategoryName());
 
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
@@ -429,6 +444,7 @@ public class OracleAccount implements AccountHandler{
                 return false;
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -832,11 +848,13 @@ public class OracleAccount implements AccountHandler{
             statement.setString(2, this.username);
 
             ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                String categoryNameFull = resultSet.getString("name");
+                String categoryType = resultSet.getString("type");
+    
+                retVal = new Category(categoryNameFull, categoryType);
+            }
 
-            String categoryNameFull = resultSet.getString("name");
-            String categoryType = resultSet.getString("type");
-
-            retVal = new Category(categoryNameFull, categoryType);
         }
         catch(Exception e)
         {

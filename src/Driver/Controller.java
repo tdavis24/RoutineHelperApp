@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import Account.ToDoList;
 import Account.OracleAccount;
 import Account.Schedule.Day;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 // Controller class used to pass information between the UI and the database
 // Created by: Ethan Andrews, Tanner Davis, and Michael Rosenwinkel
@@ -45,13 +47,13 @@ public class Controller {
                 String sql = "";
                 switch (infoToUpdate.toLowerCase()) {
                     case "username":
-                        sql = "UPDATE accounts SET username = ? WHERE username = ?";
+                        sql = "UPDATE UserAccounts SET username = ? WHERE username = ?";
                         break;
                     case "password":
-                        sql = "UPDATE accounts SET password = ? WHERE username = ?";
+                        sql = "UPDATE UserAccounts SET password = ? WHERE username = ?";
                         break;
                     case "email":
-                        sql = "UPDATE accounts SET email = ? WHERE username = ?";
+                        sql = "UPDATE UserAccounts SET email = ? WHERE username = ?";
                         break;
                     default:
                         System.out.println("Unknown field to update.");
@@ -103,7 +105,7 @@ public class Controller {
             if (deleted != null) {
                 // Delete the account from the database
                 Connection conn = db.getConnection();
-                String sql = "DELETE FROM accounts WHERE username = ?";
+                String sql = "DELETE FROM UserAccounts WHERE username = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1, curAccount.getUsername());
                     int affectedRows = pstmt.executeUpdate();
@@ -128,43 +130,12 @@ public class Controller {
         return null;
     }
     
-    public boolean createTask(String name, String information, Category category) {
+    public boolean createTask(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startdate, LocalTime duration, Category category, String recurrence) {
         if (curAccount == null) {
             System.out.println("No account is currently logged in. Cannot create task.");
             return false;
         }
-
-        // EXAMPLE CASE
-        Task newTask = new Task(name, information, "2024-12-31", category, "None");
-        
-        boolean taskAdded = curAccount.createRoutine(newTask);
-        if (taskAdded) {
-            Connection conn = db.getConnection();
-            String sql = "INSERT INTO tasks (username, name, information, deadline, recurrence_interval, category) VALUES (?, ?, ?, ?, ?, ?)";
-        
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, curAccount.getUsername());
-                pstmt.setString(2, newTask.getName());
-                pstmt.setString(3, newTask.getInformation());
-                pstmt.setString(4, newTask.getDeadline());
-                pstmt.setString(5, newTask.getRecurrenceInterval());
-                pstmt.setString(6, category.getCategoryName());
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
-                    System.out.println("Task created and saved to the database successfully.");
-                    return true;
-                } else {
-                    System.out.println("Failed to save the task to the database.");
-                    return false;
-                }
-            } catch (SQLException e) {
-                System.out.println("SQL Error while creating task: " + e.getMessage());
-                return false;
-            }
-        } else {
-            System.out.println("Failed to add task to the account.");
-            return false;
-        }
+        return curAccount.createRoutine(new Task(name, information, deadline, timeOfDay, startdate, duration, category, recurrence));
     }
 
     /*
@@ -205,7 +176,7 @@ public class Controller {
         if(accountSet)
         {
             Connection conn = db.getConnection();
-            String sql = "INSERT INTO accounts (username, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO UserAccounts (username, email, password, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, username);
@@ -213,16 +184,21 @@ public class Controller {
                 pstmt.setString(3, password);
                 pstmt.setString(4, firstName);
                 pstmt.setString(5, lastName);
+                
                 int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
+                System.out.println("Affected rows: " + affectedRows);
+                if(affectedRows > 0) {
                     System.out.println("Account created and saved to the database successfully.");
                     return this.curAccount;
-                } else {
+                }
+                else {
                     System.out.println("Failed to save account to the databse");
                     return null;
                 }
-            } catch (SQLException e) {
-                System.out.println("SQL Error while creating account: " + e.getMessage());
+            }
+            catch (SQLException e) {
+                System.out.println("SQL Error while creating account: ");
+                e.printStackTrace();
                 return null;
             }
         } else {
@@ -242,14 +218,17 @@ public class Controller {
      */
     public AccountHandler loginAccount(String username, String password) {
         try {
+
             Connection conn = db.getConnection();
-            String sql = "SELECT * FROM accounts WHERE username = ?";
+            System.out.println("Searching for username: " + username);
+            String sql = "SELECT * FROM UserAccounts WHERE username = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, username);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
                     String dbPassword = rs.getString("password");
-                    if (dbPassword.equals(password)) {
+                    System.out.println("Database Password: " + dbPassword + "\nUI Password: " + password);
+                    if(dbPassword.equals(password)) {
                         String email = rs.getString("email");
                         String firstName = rs.getString("first_name");
                         String lastName = rs.getString("last_name");
@@ -353,7 +332,7 @@ public class Controller {
     private AccountHandler fetchAccountDetails(String username) {
         try {
             Connection conn = db.getConnection();
-            String sql = "SELECT * FROM accounts WHERE username = ?";
+            String sql = "SELECT * FROM UserAccounts WHERE username = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, username);
                 ResultSet rs = pstmt.executeQuery();
@@ -403,4 +382,34 @@ public class Controller {
             }
         }
     }
+
+    public boolean createCategory(String name, String type)
+    {
+        try {
+            Connection conn = db.getConnection();
+            String sql = "INSERT INTO Category (name, type) VALUES (?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, name);
+                pstmt.setString(2, type);
+                int affectedRows = pstmt.executeUpdate();
+                System.out.println("Affected rows: " + affectedRows);
+                if(affectedRows > 0) {
+                    System.out.println("Account created and saved to the database successfully.");
+                    return true;
+                }
+                else {
+                    System.out.println("Failed to save account to the databse");
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error while fetching account details: " + e.getMessage());
+            return false;
+        }
+        finally
+        {
+            db.disconnect();
+        }
+    }
+
 }

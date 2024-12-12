@@ -1,5 +1,6 @@
 package Driver;
 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.regex.*;
 
@@ -10,7 +11,7 @@ public class InputValidation {
 
     // create Pattern & Matcher objects
     private static Pattern usernamePattern = Pattern.compile("^(([A-Za-z0-9._]{1})([A-Za-z0-9._]*)){8,30}$");
-    private static Pattern passwordPattern = Pattern.compile("^(([A-Za-z0-9._!?$]{1})([A-Za-z0-9._!?$]*)){8,30}$");
+    private static Pattern passwordPattern = Pattern.compile("^[A-Za-z0-9._!?$]{8,30}$");
     private static Pattern textOnlyPattern = Pattern.compile("^[A-Za-z]*$");
     private static Pattern emailPattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     private static Matcher usernameMatcher;
@@ -64,7 +65,7 @@ public class InputValidation {
     public static int validateInteger(String input)
     {
         // create return value
-        int retVal;
+        int retVal = -1;
 
         // try sanitizing input
         try
@@ -190,16 +191,19 @@ public class InputValidation {
     private static String verifyUsername(String input)
     {
         // create return value
-        String retVal;
+        String retVal = null;
+        System.out.println("Username to validate (in input validation): " + input);
 
         // verify username is valid
         try
         {
             // check if username is valid
             usernameMatcher = usernamePattern.matcher(input);
+            System.out.println("Username valid: " + usernameMatcher.matches());
             if(usernameMatcher.matches())
             {
                 retVal = input;
+                System.out.println("Returned username: " + retVal);
             }
             else
             {
@@ -224,12 +228,13 @@ public class InputValidation {
     {
         // create return value
         String retVal;
-
+        System.out.println("Password to validate (in input validation): " + input);
         // verify password is valid
         try
         {
             // check if input is valid
             passwordMatcher = passwordPattern.matcher(input);
+            System.out.println("Password valid: " + passwordMatcher.matches());
             if(passwordMatcher.matches())
             {
                 retVal = input;
@@ -279,4 +284,12 @@ public class InputValidation {
 
         return retVal;
     }
+
+    public static LocalDate validateDate(String input)
+    {
+        String[] arr = input.split("-");
+        return LocalDate.of(validateInteger(arr[2]), validateInteger(arr[1]), validateInteger(arr[0]));
+    }
+
 }
+

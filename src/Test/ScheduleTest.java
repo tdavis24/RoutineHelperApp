@@ -11,27 +11,34 @@ import java.time.*;
 
 
 public class ScheduleTest {
+    Category healthCategory = null;
+    Task t1 = null;
+    Task t2 = null;
+    Task t3 = null;
+    Schedule mySched = null;
+    Schedule mySched1 = null;
+    Schedule mySched2 = null;
+    Schedule mySched3 = null;
     @Before
     public void setup(){
-        Category healthCategory = new Category("health", "idk");
-        Task t1 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Daily", LocalTime.of(1,0), healthCategory);
-        Task t2 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Daily", LocalTime.of(1,0), healthCategory);
-        Task t3 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Weekly", LocalTime.of(1,0), healthCategory);
+        healthCategory = new Category("health", "idk");
+        t1 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Daily", LocalTime.of(1,0), healthCategory);
+        t2 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Daily", LocalTime.of(1,0), healthCategory);
+        t3 = new Task("brush teeth", "brush teeth for 2 minutes", "deadline", LocalTime.of(10, 30), LocalDate.now(), "Weekly", LocalTime.of(1,0), healthCategory);
 
-        Schedule mySched = new Schedule(1);
-        Schedule mySched2 = new Schedule(3);
-        Schedule mySched3 = new Schedule(8);
+        mySched = new Schedule(1);
+        mySched2 = new Schedule(3);
+        mySched3 = new Schedule(8);
         mySched.addTask(t1);
         mySched2.addTask(t2);
         mySched3.addTask(t3);
-        String scheduleString = mySched.display();
-        String scheduleString2 = mySched2.display();
-        String scheduleString3 = mySched3.display();
     }
 
     @Test
     public void testSingularTaskDaily()
     {
+        String scheduleString = mySched.display();
+
         Assert.assertEquals(scheduleString, 
         "\nPrinting schedule for " + LocalDate.now() + "\n" + 
         "Name: brush teeth\n" +
@@ -50,6 +57,8 @@ public class ScheduleTest {
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
         LocalDate dayAfterTomorrow = tomorrow.plusDays(1);
+        String scheduleString2 = mySched2.display();
+
         Assert.assertEquals(scheduleString2, 
             "\nPrinting schedule for " + today + "\n" + 
             "Name: brush teeth\n" +
@@ -82,6 +91,7 @@ public class ScheduleTest {
     public void testWeeklyTask()
     {
         LocalDate today = LocalDate.now();
+        String scheduleString = mySched.display();
         LocalDate[] weekArray = {today, today.plusDays(1), today.plusDays(2), today.plusDays(3), today.plusDays(4), today.plusDays(5), today.plusDays(6), today.plusDays(7)};
         Assert.assertEquals(scheduleString, 
             "\nPrinting schedule for " + today + "\n" + 
@@ -109,7 +119,7 @@ public class ScheduleTest {
         );
     }
 
-        @Test
+    @Test
     public void testSetReminderForRoutine()
     {
         // Create a new category
@@ -132,7 +142,4 @@ public class ScheduleTest {
         Assert.assertEquals("Reminder date should match.", reminderDate, workoutTask.getReminderDate());
         Assert.assertEquals("Reminder time should match.", reminderTime, workoutTask.getReminderTime());
     }
-
-    
-    
 }

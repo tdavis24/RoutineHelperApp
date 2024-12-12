@@ -2,6 +2,11 @@ RoutineHelperApp;
 
 sql;
 
+DROP TABLE UserAccounts CASCADE CONSTRAINTS;
+DROP TABLE Category CASCADE CONSTRAINTS;
+DROP TABLE Routine CASCADE CONSTRAINTS;
+DROP SEQUENCE routine_seq;
+
 CREATE TABLE UserAccounts (
     username VARCHAR2(30) PRIMARY KEY,
     password VARCHAR2(255) NOT NULL,
@@ -10,8 +15,16 @@ CREATE TABLE UserAccounts (
     last_name VARCHAR2(50) NOT NULL
 );
 
+CREATE TABLE Category (
+    name VARCHAR2(100) PRIMARY KEY,
+    type VARCHAR2(100) NOT NULL,
+    username VARCHAR2(30) NOT NULL,
+    FOREIGN KEY (username) REFERENCES UserAccounts(username)
+);
 
 CREATE SEQUENCE routine_seq START WITH 1 INCREMENT BY 1;
+
+username, name, information, deadline, routine_time, routine_day, recurrence, duration, category
 
 CREATE TABLE Routine (
     routineID NUMBER PRIMARY KEY,
@@ -28,10 +41,19 @@ CREATE TABLE Routine (
     FOREIGN KEY (username) REFERENCES UserAccounts(username)
 );
 
-
-CREATE TABLE Category (
-    name VARCHAR2(100) PRIMARY KEY,
-    type VARCHAR2(100) NOT NULL,
+CREATE TABLE ToDoList (
     username VARCHAR2(30) NOT NULL,
-    FOREIGN KEY (username) REFERENCES UserAccounts(username)
+    name VARCHAR2(50) NOT NULL,
+    information VARCHAR2(500),
+    deadline VARCHAR2(30),
+    toDo_time DATE,
+    toDo_day DATE,
+    duration NUMBER,
+    category VARCHAR2(100),
+    FOREIGN KEY (username) REFERENCES UserAccounts(username),
+    FOREIGN KEY (category) REFERENCES Category(name)
 );
+
+
+
+

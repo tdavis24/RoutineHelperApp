@@ -51,6 +51,17 @@ public class Task{
         this.category = category;
     }
 
+    public Task(String name, String information, String deadline, LocalTime timeOfDay, LocalDate startdate, LocalTime duration, Category category, String recurrence) {
+        this.name = name;
+        this.information = information;
+        this.deadline = deadline;
+        this.timeOfDay = timeOfDay;
+        this.startDate = startdate; 
+        this.duration = duration;
+        this.category = category;
+        this.recurrenceInterval = recurrence;
+    }
+
     public Task(String name, String information, String deadline, Category category, String recurrenceInterval) {
         // Default values for simplicity
         this(name, information, deadline, LocalTime.now(), LocalDate.now(), recurrenceInterval, LocalTime.of(1,0), category);
@@ -163,6 +174,15 @@ public class Task{
 
     public boolean isDeleted() {
         return this.deleted;
+    }
+
+    public LocalDate getReminderDate(){
+        return this.reminderDate;
+    }
+
+    public LocalTime getReminderTime()
+    {
+        return this.reminderTime;
     }
 
     /**
